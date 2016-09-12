@@ -84,149 +84,147 @@ public class CategoryListActivity extends AppCompatActivity implements View.OnCl
 
         switch (v.getId()) {
             case R.id.catBtnGreetings:
-                IDbundle.putString("catName", "catName");
-                IDbundle.putString("catID", "catID");
+                IDbundle.putString("categoryID", "Greetings");
                 intentItemList.putExtras(IDbundle);
                 startActivity(intentItemList);
                 break;
-            case R.id.catBtnExprs:
-                IDbundle.putString("catName", "catName");
-                IDbundle.putString("catID", "catID");
+            case R.id.catBtnExprs:               
+                IDbundle.putString("categoryID", "Greetings");
                 intentItemList.putExtras(IDbundle);
                 startActivity(intentItemList);
             case R.id.catBtnNumber:
-                IDbundle.putString("catName", "catName");
-                IDbundle.putString("catID", "catID");
+               
+                IDbundle.putString("categoryID", "Greetings");
                 intentItemList.putExtras(IDbundle);
                 startActivity(intentItemList);
             case R.id.catBtnTime:
-                IDbundle.putString("catName", "catName");
-                IDbundle.putString("catID", "catID");
+               
+                IDbundle.putString("categoryID", "Greetings");
                 intentItemList.putExtras(IDbundle);
                 startActivity(intentItemList);
             case R.id.catBtnDay:
-                IDbundle.putString("catName", "catName");
-                IDbundle.putString("catID", "catID");
+               
+                IDbundle.putString("categoryID", "Greetings");
                 intentItemList.putExtras(IDbundle);
                 startActivity(intentItemList);
             case R.id.catBtnMonth:
-                IDbundle.putString("catName", "catName");
-                IDbundle.putString("catID", "catID");
+               
+                IDbundle.putString("categoryID", "Greetings");
                 intentItemList.putExtras(IDbundle);
                 startActivity(intentItemList);
             case R.id.catBtnSeason:
-                IDbundle.putString("catName", "catName");
-                IDbundle.putString("catID", "catID");
+               
+                IDbundle.putString("categoryID", "Greetings");
                 intentItemList.putExtras(IDbundle);
                 startActivity(intentItemList);
             case R.id.catBtnTransport:
-                IDbundle.putString("catName", "catName");
-                IDbundle.putString("catID", "catID");
+               
+                IDbundle.putString("categoryID", "Greetings");
                 intentItemList.putExtras(IDbundle);
                 startActivity(intentItemList);
             case R.id.catBtnPeople:
-                IDbundle.putString("catName", "catName");
-                IDbundle.putString("catID", "catID");
+               
+                IDbundle.putString("categoryID", "Greetings");
                 intentItemList.putExtras(IDbundle);
                 startActivity(intentItemList);
             case R.id.catBtnWorker:
-                IDbundle.putString("catName", "catName");
-                IDbundle.putString("catID", "catID");
+               
+                IDbundle.putString("categoryID", "Greetings");
                 intentItemList.putExtras(IDbundle);
                 startActivity(intentItemList);
             case R.id.catBtnCloth:
-                IDbundle.putString("catName", "catName");
-                IDbundle.putString("catID", "catID");
+               
+                IDbundle.putString("categoryID", "Greetings");
                 intentItemList.putExtras(IDbundle);
                 startActivity(intentItemList);
             case R.id.catBtnFood:
-                IDbundle.putString("catName", "catName");
-                IDbundle.putString("catID", "catID");
+               
+                IDbundle.putString("categoryID", "Greetings");
                 intentItemList.putExtras(IDbundle);
                 startActivity(intentItemList);
             case R.id.catBtnWeight:
-                IDbundle.putString("catName", "catName");
-                IDbundle.putString("catID", "catID");
+               
+                IDbundle.putString("categoryID", "Greetings");
                 intentItemList.putExtras(IDbundle);
                 startActivity(intentItemList);
             case R.id.catBtnAnimalDom:
-                IDbundle.putString("catName", "catName");
-                IDbundle.putString("catID", "catID");
+               
+                IDbundle.putString("categoryID", "Greetings");
                 intentItemList.putExtras(IDbundle);
                 startActivity(intentItemList);
             case R.id.catBtnAnimalWild:
-                IDbundle.putString("catName", "catName");
-                IDbundle.putString("catID", "catID");
+               
+                IDbundle.putString("categoryID", "Greetings");
                 intentItemList.putExtras(IDbundle);
                 startActivity(intentItemList);
             case R.id.catBtnPest:
-                IDbundle.putString("catName", "catName");
-                IDbundle.putString("catID", "catID");
+               
+                IDbundle.putString("categoryID", "Greetings");
                 intentItemList.putExtras(IDbundle);
                 startActivity(intentItemList);
             case R.id.catBtnBody:
-                IDbundle.putString("catName", "catName");
-                IDbundle.putString("catID", "catID");
+               
+                IDbundle.putString("categoryID", "Greetings");
                 intentItemList.putExtras(IDbundle);
                 startActivity(intentItemList);
             case R.id.catBtnDirection:
-                IDbundle.putString("catName", "catName");
-                IDbundle.putString("catID", "catID");
+               
+                IDbundle.putString("categoryID", "Greetings");
                 intentItemList.putExtras(IDbundle);
                 startActivity(intentItemList);
             case R.id.catBtnWord:
-                IDbundle.putString("catName", "catName");
-                IDbundle.putString("catID", "catID");
+               
+                IDbundle.putString("categoryID", "Greetings");
                 intentItemList.putExtras(IDbundle);
                 startActivity(intentItemList);
             case R.id.catBtnIllness:
-                IDbundle.putString("catName", "catName");
-                IDbundle.putString("catID", "catID");
+               
+                IDbundle.putString("categoryID", "Greetings");
                 intentItemList.putExtras(IDbundle);
                 startActivity(intentItemList);
             case R.id.catBtnSign:
-                IDbundle.putString("catName", "catName");
-                IDbundle.putString("catID", "catID");
+               
+                IDbundle.putString("categoryID", "Greetings");
                 intentItemList.putExtras(IDbundle);
                 startActivity(intentItemList);
             case R.id.catBtnConstruction:
-                IDbundle.putString("catName", "catName");
-                IDbundle.putString("catID", "catID");
+               
+                IDbundle.putString("categoryID", "Greetings");
                 intentItemList.putExtras(IDbundle);
                 startActivity(intentItemList);
             case R.id.catBtnStationaries:
-                IDbundle.putString("catName", "catName");
-                IDbundle.putString("catID", "catID");
+               
+                IDbundle.putString("categoryID", "Greetings");
                 intentItemList.putExtras(IDbundle);
                 startActivity(intentItemList);
             case R.id.catBtnSubject:
-                IDbundle.putString("catName", "catName");
-                IDbundle.putString("catID", "catID");
+               
+                IDbundle.putString("categoryID", "Greetings");
                 intentItemList.putExtras(IDbundle);
                 startActivity(intentItemList);
             case R.id.catBtnContinents:
-                IDbundle.putString("catName", "catName");
-                IDbundle.putString("catID", "catID");
+               
+                IDbundle.putString("categoryID", "Greetings");
                 intentItemList.putExtras(IDbundle);
                 startActivity(intentItemList);
             case R.id.catBtnCommonItems:
-                IDbundle.putString("catName", "catName");
-                IDbundle.putString("catID", "catID");
+               
+                IDbundle.putString("categoryID", "Greetings");
                 intentItemList.putExtras(IDbundle);
                 startActivity(intentItemList);
             case R.id.catBtnColor:
-                IDbundle.putString("catName", "catName");
-                IDbundle.putString("catID", "catID");
+               
+                IDbundle.putString("categoryID", "Greetings");
                 intentItemList.putExtras(IDbundle);
                 startActivity(intentItemList);
             case R.id.catBtnMath:
-                IDbundle.putString("catName", "catName");
-                IDbundle.putString("catID", "catID");
+               
+                IDbundle.putString("categoryID", "Greetings");
                 intentItemList.putExtras(IDbundle);
                 startActivity(intentItemList);
             case R.id.catBtnAboutUs:
-                IDbundle.putString("catName", "catName");
-                IDbundle.putString("catID", "catID");
+               
+                IDbundle.putString("categoryID", "Greetings");
                 intentItemList.putExtras(IDbundle);
                 startActivity(intentItemList);
 
