@@ -3,44 +3,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CategoryListActivity"
     android:background="@color/highlighted_text_material_dark"
+    android:orientation="vertical"
     android:padding="5dp"
-    android:orientation="vertical">
+    tools:context=".CategoryListActivity">
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/secAdvertise"
-        android:minHeight="20dp"></LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="20dp"
+        android:orientation="horizontal"></LinearLayout>
+
+    <LinearLayout
         android:id="@+id/secHeading"
-        android:gravity="center_horizontal">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/txtViewCatagoryPageHeading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Word Power Swahili"
-            android:id="@+id/txtViewCatagoryPageHeading" />
+            android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:id="@+id/secItemListHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/secItemListHeader"
-        android:layout_margin="10dp">
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
 
         <include
+            layout="@layout/list_item_header"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            layout="@layout/list_item_header" />
+            android:layout_height="fill_parent" />
     </LinearLayout>
 
     <ScrollView
@@ -62,17 +62,17 @@
                 android:id="@+id/secItemListView"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <ListView
                     android:id="@+id/itemData"
                     android:layout_width="match_parent"
-                    android:layout_height="750sp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/bright_foreground_inverse_material_light"
                     android:clickable="true"
                     android:divider="#000000"
                     android:dividerHeight="1px"
-                    android:scrollbars="vertical"
-                    android:background="@color/bright_foreground_inverse_material_light"></ListView>
+                    android:scrollbars="vertical"></ListView>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

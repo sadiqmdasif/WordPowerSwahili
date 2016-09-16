@@ -2,12 +2,11 @@ package com.phonegap.wordpowerswahili;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class NewWordDownloader extends AppCompatActivity {
+public class PremiumWordDownloader extends AppCompatActivity {
 
     // JSON Node names
     private static final String TAG_ITEMS = "items";
@@ -26,25 +25,26 @@ public class NewWordDownloader extends AppCompatActivity {
     private static final String TAG_SWAHILI = "Swahili";
     private static final String TAG_CATEGORYID = "CategoryID";
     private static final String TAG_SOUND = "Sound";
-    private static final String TAG_HASMP3 ="HasMP3" ;
+    private static final String TAG_HASMP3 = "HasMP3";
     // URL to get contacts JSON
     private static String url = "http://wordpowerswahili.org/api/wordsapi";
     // user JSONArray
     JSONArray items = null;
     // Hashmap for ListView
     ArrayList<HashMap<String, String>> wordList;
+    SqliteController controller;
     private ProgressDialog pDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_word_downloader);
-
+        controller = new SqliteController(getApplication().getApplicationContext());
         wordList = new ArrayList<HashMap<String, String>>();
         // Calling async task to get json
         new GetNewWords().execute();
 
-        Dialog dialog = new Dialog(NewWordDownloader.this);
+        Dialog dialog = new Dialog(PremiumWordDownloader.this);
         dialog.setTitle("Done");
         dialog.show();
     }
@@ -61,7 +61,7 @@ public class NewWordDownloader extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             // Showing progress dialog
-            pDialog = new ProgressDialog(NewWordDownloader.this);
+            pDialog = new ProgressDialog(PremiumWordDownloader.this);
             pDialog.setMessage("Please wait...");
             pDialog.setCancelable(false);
             pDialog.show();
@@ -80,7 +80,7 @@ public class NewWordDownloader extends AppCompatActivity {
 
             if (jsonStr != null) {
                 try {
-                   // JSONArray jsonArray = null;
+                    // JSONArray jsonArray = null;
                     try {
                         items = new JSONArray(jsonStr);
                     } catch (JSONException e) {
@@ -88,7 +88,7 @@ public class NewWordDownloader extends AppCompatActivity {
                     }
 
                     // Getting JSON Array node
-                   // items = jsonObj.getJSONArray(TAG_ITEMS);
+                    // items = jsonObj.getJSONArray(TAG_ITEMS);
 
                     // looping through All Contacts
                     for (int i = 0; i < items.length(); i++) {
@@ -129,7 +129,7 @@ public class NewWordDownloader extends AppCompatActivity {
                         wordMap.put(TAG_SWAHILI, mSwahili);
                         wordMap.put(TAG_CATEGORYID, categoryID);
                         wordMap.put(TAG_SOUND, mSound);
-                        wordMap.put(TAG_HASMP3,"0");
+                        wordMap.put(TAG_HASMP3, "0");
                         // adding user to user list
                         wordList.add(wordMap);
                     }
@@ -153,18 +153,14 @@ public class NewWordDownloader extends AppCompatActivity {
             while (iterator.hasNext()) {
                 // Log.d("Post Execute","-");
                 HashMap map = (HashMap) iterator.next();
-                SqliteController controller = new SqliteController(getApplication().getApplicationContext());
-                controller.insertWords(map);
-            /*    String mWordID = (String) map.get(TAG_WORDID);
-                String mEnglish = map.get(TAG_ENGLISH).toString();
-                String mSwahili = map.get(TAG_SWAHILI).toString();
-                String mCategoryID = map.get(TAG_CATEGORYID).toString();
-                String mSound = map.get(TAG_SOUND).toString();
-                String INSERT_WORDS = "INSERT INTO Words (WordId, English,Swahili,CategoryID,Sound,NewWord) VALUES ('"+mWordID+"','"+mEnglish+"','"+mSwahili+"','"+mCategoryID+"','"+mSound+"','2')";
-*/
+                HashMap mapInsert = controller.getWordInfo(map.get(TAG_WORDID).toString());
+                if (mapInsert.get(TAG_WORDID).equals("0")) {
+                    controller.insertWords(map);
+                }
 
             }
 
+            startActivity(new Intent(PremiumWordDownloader.this, PremiumSoundDownloader.class));
 
         }
 

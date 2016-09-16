@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Environment;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -25,9 +24,8 @@ public class SqliteController extends SQLiteOpenHelper {
     private static final String TAG_SOUND = "Sound";
     private static final String TAG_HASMP3 = "HasMP3";
 
-
     public SqliteController(Context applicationcontext) {
-        super(applicationcontext, "SWAHILIDB.db", null, 1);
+        super(applicationcontext, android.os.Environment.getExternalStorageDirectory() + "/SWAHILI/SWAHILIDB.db", null, 1);
         Log.d(LOGCAT, "Created db");
     }
 
@@ -38,7 +36,7 @@ public class SqliteController extends SQLiteOpenHelper {
         database.execSQL(query);
 */
         String CREATE_TABLE_WORDS = "Create TABLE Words (" +
-                "WordId VARCHAR (10, 1) NOT NULL," +
+                "WordId VARCHAR (10, 1) NOT NULL PRIMARY KEY," +
                 "English [NVARCHAR] (500) NOT NULL," +
                 "Swahili  [NVARCHAR] (500) NOT NULL," +
                 "CategoryID [NVARCHAR] (200)," +
@@ -68,7 +66,6 @@ public class SqliteController extends SQLiteOpenHelper {
         values.put(TAG_CATEGORYID, queryValues.get(TAG_CATEGORYID));
         values.put(TAG_SOUND, queryValues.get(TAG_SOUND));
         values.put(TAG_HASMP3, queryValues.get(TAG_HASMP3));
-
         database.insert("Words", null, values);
         database.close();
     }
@@ -77,9 +74,19 @@ public class SqliteController extends SQLiteOpenHelper {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("Word", queryValues.get("Words"));
-        return database.update("Words", values, "wordId" + " = ?", new String[]{queryValues.get("wordId")}); //String updateQuery = "Update words set txtWord='"+word+"' where txtWord='"+ oldWord +"'"; //Log.d(LOGCAT,updateQuery); //database.rawQuery(updateQuery, null); //return database.update("words", values, "txtWord = ?", new String[] { word }); } public void deleteStudent(String id) { Log.d(LOGCAT,"delete"); SQLiteDatabase database = this.getWritableDatabase();	String deleteQuery = "DELETE FROM Students where StudentId='"+ id +"'"; Log.d("query",deleteQuery);	database.execSQL(deleteQuery); } public ArrayList<HashMap<String, String>> getAllStudents() { ArrayList<HashMap<String, String>> wordList; wordList = new ArrayList<HashMap<String, String>>(); String selectQuery = "SELECT * FROM Students"; SQLiteDatabase database = this.getWritableDatabase(); Cursor cursor = database.rawQuery(selectQuery, null); if (cursor.moveToFirst()) { do { HashMap<String, String> map = new HashMap<String, String>(); map.put("StudentId", cursor.getString(0)); map.put("StudentName", cursor.getString(1)); wordList.add(map); } while (cursor.moveToNext()); } // return contact list return wordList; } public HashMap<String, String> getStudentInfo(String id) { HashMap<String, String> wordList = new HashMap<String, String>(); SQLiteDatabase database = this.getReadableDatabase(); String selectQuery = "SELECT * FROM Students where StudentId='"+id+"'"; Cursor cursor = database.rawQuery(selectQuery, null); if (cursor.moveToFirst()) { do { //HashMap<String, String> map = new HashMap<String, String>(); wordList.put("StudentName", cursor.getString(1)); //wordList.add(map); } while (cursor.moveToNext()); }	return wordList; }	}
-
+        return database.update("Words", values, "wordId" + " = ?", new String[]{queryValues.get("wordId")});
+        //String updateQuery = "Update words set txtWord='"+word+"' where txtWord='"+ oldWord +"'"; //Log.d(LOGCAT,updateQuery); //database.rawQuery(updateQuery, null); //return database.update("words", values, "txtWord = ?", new String[] { word }); } public void deleteStudent(String id) { Log.d(LOGCAT,"delete"); SQLiteDatabase database = this.getWritableDatabase();	String deleteQuery = "DELETE FROM Students where StudentId='"+ id +"'"; Log.d("query",deleteQuery);	database.execSQL(deleteQuery); } public ArrayList<HashMap<String, String>> getAllStudents() { ArrayList<HashMap<String, String>> wordList; wordList = new ArrayList<HashMap<String, String>>(); String selectQuery = "SELECT * FROM Students"; SQLiteDatabase database = this.getWritableDatabase(); Cursor cursor = database.rawQuery(selectQuery, null); if (cursor.moveToFirst()) { do { HashMap<String, String> map = new HashMap<String, String>(); map.put("StudentId", cursor.getString(0)); map.put("StudentName", cursor.getString(1)); wordList.add(map); } while (cursor.moveToNext()); } // return contact list return wordList; } public HashMap<String, String> getStudentInfo(String id) { HashMap<String, String> wordList = new HashMap<String, String>(); SQLiteDatabase database = this.getReadableDatabase(); String selectQuery = "SELECT * FROM Students where StudentId='"+id+"'"; Cursor cursor = database.rawQuery(selectQuery, null); if (cursor.moveToFirst()) { do { //HashMap<String, String> map = new HashMap<String, String>(); wordList.put("StudentName", cursor.getString(1)); //wordList.add(map); } while (cursor.moveToNext()); }	return wordList; }	}
     }
+
+    public int updateHasMp3(String wordId, String hasMp3) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        //values.put(TAG_WORDID, wordId);
+        values.put(TAG_HASMP3, hasMp3);
+        return database.update("Words", values, "wordId" + " = ?", new String[]{wordId});
+        //String updateQuery = "Update words set txtWord='"+word+"' where txtWord='"+ oldWord +"'"; //Log.d(LOGCAT,updateQuery); //database.rawQuery(updateQuery, null); //return database.update("words", values, "txtWord = ?", new String[] { word }); } public void deleteStudent(String id) { Log.d(LOGCAT,"delete"); SQLiteDatabase database = this.getWritableDatabase();	String deleteQuery = "DELETE FROM Students where StudentId='"+ id +"'"; Log.d("query",deleteQuery);	database.execSQL(deleteQuery); } public ArrayList<HashMap<String, String>> getAllStudents() { ArrayList<HashMap<String, String>> wordList; wordList = new ArrayList<HashMap<String, String>>(); String selectQuery = "SELECT * FROM Students"; SQLiteDatabase database = this.getWritableDatabase(); Cursor cursor = database.rawQuery(selectQuery, null); if (cursor.moveToFirst()) { do { HashMap<String, String> map = new HashMap<String, String>(); map.put("StudentId", cursor.getString(0)); map.put("StudentName", cursor.getString(1)); wordList.add(map); } while (cursor.moveToNext()); } // return contact list return wordList; } public HashMap<String, String> getStudentInfo(String id) { HashMap<String, String> wordList = new HashMap<String, String>(); SQLiteDatabase database = this.getReadableDatabase(); String selectQuery = "SELECT * FROM Students where StudentId='"+id+"'"; Cursor cursor = database.rawQuery(selectQuery, null); if (cursor.moveToFirst()) { do { //HashMap<String, String> map = new HashMap<String, String>(); wordList.put("StudentName", cursor.getString(1)); //wordList.add(map); } while (cursor.moveToNext()); }	return wordList; }	}
+    }
+
 
     public void deleteWords(String id) {
         Log.d(LOGCAT, "delete");
@@ -103,7 +110,7 @@ public class SqliteController extends SQLiteOpenHelper {
                 map.put(TAG_SWAHILI, cursor.getString(2));
                 map.put(TAG_CATEGORYID, cursor.getString(3));
                 map.put(TAG_SOUND, cursor.getString(4));
-                map.put(TAG_HASMP3,cursor.getString(5));
+                map.put(TAG_HASMP3, cursor.getString(5));
 
                 wordList.add(map);
             } while (cursor.moveToNext());
@@ -112,11 +119,10 @@ public class SqliteController extends SQLiteOpenHelper {
         return wordList;
     }
 
-
-    public ArrayList<HashMap<String, String>> getWordCategory(String categoryID) {
+    public ArrayList<HashMap<String, String>> getAllWordsHasNoMp3() {
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT * FROM Words where categoryId='"+categoryID+"'";
+        String selectQuery = "SELECT * FROM Words where hasMp3 != 1";
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -127,6 +133,30 @@ public class SqliteController extends SQLiteOpenHelper {
                 map.put(TAG_SWAHILI, cursor.getString(2));
                 map.put(TAG_CATEGORYID, cursor.getString(3));
                 map.put(TAG_SOUND, cursor.getString(4));
+                map.put(TAG_HASMP3, cursor.getString(5));
+
+                wordList.add(map);
+            } while (cursor.moveToNext());
+            // return contact list
+        }
+        return wordList;
+    }
+
+    public ArrayList<HashMap<String, String>> getWordsByCategory(String categoryID) {
+        ArrayList<HashMap<String, String>> wordList;
+        wordList = new ArrayList<HashMap<String, String>>();
+        String selectQuery = "SELECT * FROM Words where categoryId='" + categoryID + "'";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put(TAG_WORDID, cursor.getString(0));
+                map.put(TAG_ENGLISH, cursor.getString(1));
+                map.put(TAG_SWAHILI, cursor.getString(2));
+                map.put(TAG_CATEGORYID, cursor.getString(3));
+                map.put(TAG_SOUND, cursor.getString(4));
+                map.put(TAG_HASMP3, cursor.getString(5));
 
                 wordList.add(map);
             } while (cursor.moveToNext());
@@ -146,13 +176,21 @@ public class SqliteController extends SQLiteOpenHelper {
                 //HashMap<String, String> map = new HashMap<String, String>();
                 wordInfo.put("WordID", cursor.getString(0));
                 wordInfo.put("English", cursor.getString(1));
-               wordInfo.put("Swahili",cursor.getString(2));
-                wordInfo.put("CategoryID",cursor.getString(3));
-                wordInfo.put("Sound",cursor.getString(4));
-                wordInfo.put("NewWord",cursor.getString(5));
+                wordInfo.put("Swahili", cursor.getString(2));
+                wordInfo.put("CategoryID", cursor.getString(3));
+                wordInfo.put("Sound", cursor.getString(4));
+                wordInfo.put("NewWord", cursor.getString(5));
 
                 // wordList.add(map);
             } while (cursor.moveToNext());
+        }
+        if (cursor.getCount() == 0) {
+            wordInfo.put("WordID", "0");
+            wordInfo.put("English", "0");
+            wordInfo.put("Swahili", "0");
+            wordInfo.put("CategoryID", "0");
+            wordInfo.put("Sound", "0");
+            wordInfo.put("NewWord", "0");
         }
         return wordInfo;
     }
