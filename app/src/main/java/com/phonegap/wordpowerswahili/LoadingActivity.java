@@ -16,6 +16,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
@@ -33,6 +34,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -70,11 +72,12 @@ public class LoadingActivity extends Activity {
     // Hashmap for ListView
     ArrayList<HashMap<String, String>> wordList;
     DownloadWordFromURL wordFromURL;
-    DownloadSoundFromURL soundFromURL;
+    //DownloadSoundFromURL soundFromURL;
     AlertDialog.Builder builder;
     TextView txtLoadingInfo;
     private NotificationReceiver nReceiver;
     private boolean isWordDownloaded = false;
+    private DownloadZipFromURL zipFromURL;
 
     public static boolean isDeviceOnline(Context context) {
 
@@ -122,12 +125,14 @@ public class LoadingActivity extends Activity {
 
 
         wordFromURL = new DownloadWordFromURL();
-        soundFromURL = new DownloadSoundFromURL();
+       // soundFromURL = new DownloadSoundFromURL();
+        zipFromURL = new DownloadZipFromURL();
 
         arr = new ArrayList<AsyncTask<String, String, String>>();
 
         arr.add(wordFromURL);
-        arr.add(soundFromURL);
+        arr.add(zipFromURL);
+       // arr.add(soundFromURL);
 
         mDownloader();
     }
@@ -168,7 +173,8 @@ public class LoadingActivity extends Activity {
         }
 
         if (isWordDownloaded) {
-            soundFromURL.execute("http://www.wordpowerswahili.org/sounds/");
+            //soundFromURL.execute("http://www.wordpowerswahili.org/sounds/");
+            zipFromURL.execute("http://wordpowerswahili.org/sounds/sounds.zip");
         }
     }
 
@@ -391,7 +397,7 @@ public class LoadingActivity extends Activity {
 
     }
 
-    class DownloadSoundFromURL extends AsyncTask<String, String, String> {
+    private class DownloadSoundFromURL extends AsyncTask<String, String, String> {
 
         /**
          * Before starting background thread
@@ -535,7 +541,91 @@ public class LoadingActivity extends Activity {
 
     }
 
+    private class DownloadZipFromURL extends AsyncTask<String, String, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mNotifyManager.notify(id, mBuilder.build());
+            mBuilder.setAutoCancel(true);
+            txtLoadingInfo.setText("Downloading Sounds! This may take a while");
+        }
+
+        @Override
+        protected String doInBackground(String... aurl) {
+            int count;
+
+            try {
+
+                URL url = new URL(aurl[0]);
+                URLConnection conexion = url.openConnection();
+                conexion.connect();
+
+                int lenghtOfFile = conexion.getContentLength();
+                Log.d("ANDRO_ASYNC", "Lenght of file: " + lenghtOfFile);
+
+                InputStream input = new BufferedInputStream(url.openStream());
+
+
+                File cacheDir = new File(android.os.Environment.getExternalStorageDirectory(), "/SWAHILI/");
+                if (!cacheDir.exists())
+                    cacheDir.mkdirs();
+
+                File f = new File(cacheDir, "sound.zip");
+                if (!f.exists()) {
+                    FileOutputStream output = new FileOutputStream(cacheDir);
+                    byte data[] = new byte[1024];
+                    long total = 0;
+                    while ((count = input.read(data)) != -1) {
+                        total += count;
+                        publishProgress("" + (int) ((total * 100) / lenghtOfFile));
+                        output.write(data, 0, count);
+                    }
+
+                    output.flush();
+                    output.close();
+                }
+                input.close();
+            } catch (Exception e) {}
+            return null;
+
+        }
+        protected void onProgressUpdate(String... progress) {
+            Log.d("ANDRO_ASYNC",progress[0]);
+            txtLoadingInfo.setText("Please Wait! Downloading Sounds" + String.valueOf(Integer.parseInt(progress[0])) + "%");
+            Log.i("Counter", "Counter : " + counter + ", per : " + progress[0]);
+            mBuilder.setContentText("Please Wait! Downloading Sounds" + String.valueOf(Integer.parseInt(progress[0])) + "%");
+            mBuilder.setProgress(100, Integer.parseInt(progress[0]), false);
+            // Displays the progress bar for the first time.
+            mNotifyManager.notify(id, mBuilder.build());
+        }
+
+        @Override
+        protected void onPostExecute(String unused) {
+            // dismiss the dialog after the file was downloaded
+
+            // Displaying downloaded image into image view
+            // Reading image path from sdcard
+
+            //  startActivity(new Intent(PremiumSoundDownloader.this,CategoryListActivity.class));
+            Log.i("Async-Example", "onPostExecute Called");
+
+            // When the loop is finished, updates the notification
+            String zipFile = Environment.getExternalStorageDirectory() + "/SWAHILI/sound.zip";
+            String unzipLocation = Environment.getExternalStorageDirectory() + "/SWAHILI/SOUND/";
+
+            Decompress d = new Decompress(zipFile, unzipLocation);
+            d.unzip();
+            mBuilder.setContentTitle("Done.");
+            mBuilder.setContentText("Sound Download complete")
+                    // Removes the progress bar
+                    .setProgress(0, 0, false);
+            mNotifyManager.notify(id, mBuilder.build());
+        }
+    }
 }
+
+
 
 
 

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#607d8b"
+    android:background="@drawable/menu"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -26,7 +28,7 @@
         <LinearLayout
             android:id="@+id/secHeading"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
@@ -39,7 +41,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge" />
         </LinearLayout>
 
-        <LinearLayout
+        <ScrollView
             android:id="@+id/secCatagory"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
@@ -51,202 +53,671 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:id="@+id/secCatagoryBar"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight=".9"
-                    android:background="@color/accent_material_light"
-                    android:orientation="vertical"></LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/secCatagoryList"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight=".1"
                     android:orientation="vertical">
 
-                    <Button
-                        android:id="@+id/catBtnGreetings"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Greetings / Maamkizi" />
+                        android:layout_height="match_parent"
+                        android:layout_weight=".1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/catBtnExprs"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Expressions" />
+                        <ImageView
+                            
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            app:srcCompat="@drawable/greeetings" />
 
-                    <Button
-                        android:id="@+id/catBtnNumber"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Number" />
+                        <Button
+                            android:id="@+id/catBtnGreetings"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Greetings / Maamkizi" />
 
-                    <Button
-                        android:id="@+id/catBtnTime"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Time" />
 
-                    <Button
-                        android:id="@+id/catBtnDay"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Day" />
+                    </LinearLayout>
 
-                    <Button
-                        android:id="@+id/catBtnMonth"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Months" />
+                        android:layout_height="match_parent"
+                        android:layout_weight=".1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/catBtnSeason"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Seasons / Majira" />
+                        <ImageView
+                            
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            app:srcCompat="@drawable/express" />
 
-                    <Button
-                        android:id="@+id/catBtnTransport"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Transportation / Usafiri" />
+                        <Button
+                            android:id="@+id/catBtnExprs"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Expressions" />
 
-                    <Button
-                        android:id="@+id/catBtnPeople"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="People / Watu" />
 
-                    <Button
-                        android:id="@+id/catBtnWorker"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Workers / Wafanyakazi" />
+                    </LinearLayout>
 
-                    <Button
-                        android:id="@+id/catBtnCloth"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Clothings" />
+                        android:layout_height="match_parent"
+                        android:layout_weight=".1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/catBtnFood"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Food" />
+                        <ImageView
+                            
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            app:srcCompat="@drawable/number" />
 
-                    <Button
-                        android:id="@+id/catBtnWeight"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Weight" />
+                        <Button
+                            android:id="@+id/catBtnNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Number" />
 
-                    <Button
-                        android:id="@+id/catBtnAnimalDom"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Animal Dom" />
 
-                    <Button
-                        android:id="@+id/catBtnAnimalWild"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Animal Wild" />
+                    </LinearLayout>
 
-                    <Button
-                        android:id="@+id/catBtnPest"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Pests" />
+                        android:layout_height="match_parent"
+                        android:layout_weight=".1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/catBtnBody"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Body" />
+                        <ImageView
+                            
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            app:srcCompat="@drawable/time" />
 
-                    <Button
-                        android:id="@+id/catBtnDirection"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Direction" />
 
-                    <Button
-                        android:id="@+id/catBtnWord"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Words" />
+                        <Button
+                            android:id="@+id/catBtnTime"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Time" />
 
-                    <Button
-                        android:id="@+id/catBtnIllness"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Illness" />
 
-                    <Button
-                        android:id="@+id/catBtnSign"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Signs" />
+                    </LinearLayout>
 
-                    <Button
-                        android:id="@+id/catBtnConstruction"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Construction" />
+                        android:layout_height="match_parent"
+                        android:layout_weight=".1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/catBtnStationaries"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Stationaries" />
+                        <ImageView
+                            
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            app:srcCompat="@drawable/date" />
 
-                    <Button
-                        android:id="@+id/catBtnSubject"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Subjects" />
+                        <Button
+                            android:id="@+id/catBtnDay"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Day" />
 
-                    <Button
-                        android:id="@+id/catBtnContinents"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Continents" />
 
-                    <Button
-                        android:id="@+id/catBtnCommonItems"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Item" />
+                    </LinearLayout>
 
-                    <Button
-                        android:id="@+id/catBtnColor"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Color" />
+                        android:layout_height="match_parent"
+                        android:layout_weight=".1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/catBtnMath"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Math" />
+                        <ImageView
+                            
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            app:srcCompat="@drawable/date" />
 
-                    <Button
-                        android:id="@+id/catBtnAboutUs"
+                        <Button
+                            android:id="@+id/catBtnMonth"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Months" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="About us" />
+                        android:layout_height="match_parent"
+                        android:layout_weight=".1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            app:srcCompat="@android:drawable/alert_dark_frame" />
+
+
+                        <Button
+                            android:id="@+id/catBtnSeason"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Seasons / Majira" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            app:srcCompat="@drawable/transport" />
+
+                        <Button
+                            android:id="@+id/catBtnTransport"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Transportation / Usafiri" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            app:srcCompat="@android:drawable/btn_star_big_on" />
+
+                        <Button
+                            android:id="@+id/catBtnPeople"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="People / Watu" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            app:srcCompat="@android:drawable/star_on" />
+
+                        <Button
+                            android:id="@+id/catBtnWorker"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Workers / Wafanyakazi" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            app:srcCompat="?android:attr/textSelectHandle" />
+
+
+                        <Button
+                            android:id="@+id/catBtnCloth"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Clothings" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            app:srcCompat="@drawable/food" />
+
+                        <Button
+                            android:id="@+id/catBtnFood"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Food" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            app:srcCompat="@android:drawable/arrow_down_float" />
+
+                        <Button
+                            android:id="@+id/catBtnWeight"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Weight" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            app:srcCompat="@drawable/domAnimal" />
+
+                        <Button
+                            android:id="@+id/catBtnAnimalDom"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Animal Dom" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            app:srcCompat="@drawable/wildAnimal" />
+
+
+                        <Button
+                            android:id="@+id/catBtnAnimalWild"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Animal Wild" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            app:srcCompat="@android:drawable/stat_notify_more" />
+
+
+                        <Button
+                            android:id="@+id/catBtnPest"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Pests" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            app:srcCompat="@drawable/BodyParts" />
+
+
+                        <Button
+                            android:id="@+id/catBtnBody"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Body" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            app:srcCompat="@drawable/directions" />
+
+
+                        <Button
+                            android:id="@+id/catBtnDirection"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Direction" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            app:srcCompat="@drawable/UsefulWords" />
+
+
+                        <Button
+                            android:id="@+id/catBtnWord"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Words" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            app:srcCompat="@drawable/illness" />
+
+
+                        <Button
+                            android:id="@+id/catBtnIllness"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Illness" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            app:srcCompat="@drawable/signs" />
+
+
+                        <Button
+                            android:id="@+id/catBtnSign"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Signs" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            app:srcCompat="@drawable/construction" />
+
+
+                        <Button
+                            android:id="@+id/catBtnConstruction"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Construction" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            app:srcCompat="@drawable/stationaries" />
+
+
+                        <Button
+                            android:id="@+id/catBtnStationaries"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Stationaries" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            app:srcCompat="@drawable/subjects" />
+
+                        <Button
+                            android:id="@+id/catBtnSubject"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Subjects" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            app:srcCompat="@drawable/Continents" />
+
+
+                        <Button
+                            android:id="@+id/catBtnContinents"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Continents" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            app:srcCompat="@android:drawable/ic_secure" />
+
+
+                        <Button
+                            android:id="@+id/catBtnCommonItems"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Item" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            app:srcCompat="@drawable/colors" />
+
+
+                        <Button
+                            android:id="@+id/catBtnColor"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Color" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            app:srcCompat="@drawable/maths" />
+
+
+                        <Button
+                            android:id="@+id/catBtnMath"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Math" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            
+                            android:layout_width="30sp"
+                            android:layout_height="30sp"
+                            app:srcCompat="@android:drawable/btn_dialog" />
+
+                        <Button
+                            android:id="@+id/catBtnAboutUs"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="About us" />
+
+
+                    </LinearLayout>
+
 
                 </LinearLayout>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"></LinearLayout>
-        </LinearLayout>
+        </ScrollView>
     </LinearLayout>
-</ScrollView>
+</LinearLayout>
