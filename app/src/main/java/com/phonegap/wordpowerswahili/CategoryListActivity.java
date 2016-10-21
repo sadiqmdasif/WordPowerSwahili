@@ -6,9 +6,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.kobakei.ratethisapp.RateThisApp;
+
 public class CategoryListActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button catBtnGreetings, catBtnExprs, catBtnNumber, catBtnTime, catBtnDay, catBtnMonth, catBtnSeason, catBtnTransport, catBtnPeople, catBtnWorker, catBtnCloth, catBtnFood, catBtnWeight, catBtnAnimalDom, catBtnAnimalWild, catBtnPest, catBtnBody, catBtnDirection, catBtnWord, catBtnIllness, catBtnSign, catBtnConstruction, catBtnStationaries, catBtnSubject, catBtnContinets, catBtn, catBtnCommonItems, catBtnColor, catBtnMath, catBtnAboutUs;
+
+    @Override
+    public void onBackPressed() {
+       // super.onBackPressed();
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +83,27 @@ public class CategoryListActivity extends AppCompatActivity implements View.OnCl
         catBtnMath.setOnClickListener(this);
         catBtnAboutUs.setOnClickListener(this);
 
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+      /*  RateThisApp.Config config = new RateThisApp.Config();
+        config.setTitle(R.string.my_own_title);
+        config.setMessage(R.string.my_own_message);
+        config.setYesButtonText(R.string.my_own_rate);
+        config.setNoButtonText(R.string.my_own_thanks);
+        config.setCancelButtonText(R.string.my_own_cancel);*/
+
+        // Custom criteria: 1 days and 1 launches
+        RateThisApp.Config config = new RateThisApp.Config(1, 1);
+        RateThisApp.init(config);
+        // Monitor launch times and interval from installation
+        RateThisApp.onStart(this);
+        // If the criteria is satisfied, "Rate this app" dialog will be shown
+        RateThisApp.showRateDialogIfNeeded(this);
     }
 
     @Override

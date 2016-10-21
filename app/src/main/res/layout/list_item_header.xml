@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -21,7 +22,9 @@
             android:gravity="center_horizontal"
             android:text="English"
             android:textSize="20dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textColor="@android:color/background_dark" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -36,6 +39,8 @@
             android:gravity="center_horizontal"
             android:text="Swahili"
             android:textSize="20dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textColor="@android:color/background_dark" />
     </LinearLayout>
 </LinearLayout>

@@ -4,61 +4,118 @@ package com.phonegap.wordpowerswahili;
  * Created by SadiqMdAsif on 07-Oct-16.
  */
 
+import android.os.AsyncTask;
 import android.util.Log;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Enumeration;
+import java.util.Observable;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipException;
+import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
-
+import org.apache.commons.io.IOUtils;
 /**
  *
  * @author jon
  */
-public class Decompress {
-    private String _zipFile;
-    private String _location;
+public class Decompress extends Observable {
 
-    public Decompress(String zipFile, String location) {
-        _zipFile = zipFile;
-        _location = location;
+    private static final String TAG = "UnZip";
+    private String mFileName, mFilePath, mDestinationPath;
 
-        _dirChecker("");
+    public Decompress (String fileName, String filePath, String destinationPath) {
+        mFileName = fileName;
+        mFilePath = filePath;
+        mDestinationPath = destinationPath;
     }
 
-    public void unzip() {
-        try  {
-            FileInputStream fin = new FileInputStream(_zipFile);
-            ZipInputStream zin = new ZipInputStream(fin);
-            ZipEntry ze = null;
-            while ((ze = zin.getNextEntry()) != null) {
-                Log.v("Decompress", "Unzipping " + ze.getName());
+    public String getFileName () {
+        return mFileName;
+    }
 
-                if(ze.isDirectory()) {
-                    _dirChecker(ze.getName());
-                } else {
-                    FileOutputStream fout = new FileOutputStream(_location + ze.getName());
-                    for (int c = zin.read(); c != -1; c = zin.read()) {
-                        fout.write(c);
-                    }
+    public String getFilePath() {
+        return mFilePath;
+    }
 
-                    zin.closeEntry();
-                    fout.close();
+    public String getDestinationPath () {
+        return mDestinationPath;
+    }
+
+    public void unzip () {
+        String fullPath = mFilePath + "/" + mFileName + ".zip";
+        Log.d(TAG, "unzipping " + mFileName + " to " + mDestinationPath);
+        new UnZipTask().execute(fullPath, mDestinationPath);
+    }
+
+    private class UnZipTask extends AsyncTask<String, Void, Boolean> {
+
+        @SuppressWarnings("rawtypes")
+        @Override
+        protected Boolean doInBackground(String... params) {
+            String filePath = params[0];
+            String destinationPath = params[1];
+
+            File archive = new File(filePath);
+            try {
+                ZipFile zipfile = new ZipFile(archive);
+                for (Enumeration e = zipfile.entries(); e.hasMoreElements();) {
+                    ZipEntry entry = (ZipEntry) e.nextElement();
+                    unzipEntry(zipfile, entry, destinationPath);
                 }
-
+            } catch (Exception e) {
+                Log.e(TAG, "Error while extracting file " + archive, e);
+                return false;
             }
-            zin.close();
-        } catch(Exception e) {
-            Log.e("Decompress", "unzip", e);
+
+            return true;
         }
 
-    }
+        @Override
+        protected void onPostExecute(Boolean result) {
+            setChanged();
+            notifyObservers();
+        }
 
-    private void _dirChecker(String dir) {
-        File f = new File(_location + dir);
+        private void unzipEntry(ZipFile zipfile, ZipEntry entry,
+                                String outputDir) throws IOException {
 
-        if(!f.isDirectory()) {
-            f.mkdirs();
+            if (entry.isDirectory()) {
+                createDir(new File(outputDir, entry.getName()));
+                return;
+            }
+
+            File outputFile = new File(outputDir, entry.getName());
+            if (!outputFile.getParentFile().exists()) {
+                createDir(outputFile.getParentFile());
+            }
+
+            Log.v(TAG, "Extracting: " + entry);
+            BufferedInputStream inputStream = new BufferedInputStream(zipfile.getInputStream(entry));
+            BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(outputFile));
+
+            try {
+                IOUtils.copy(inputStream, outputStream);
+            } finally {
+                outputStream.close();
+                inputStream.close();
+            }
+        }
+
+        private void createDir(File dir) {
+            if (dir.exists()) {
+                return;
+            }
+            Log.v(TAG, "Creating dir " + dir.getName());
+            if (!dir.mkdirs()) {
+                throw new RuntimeException("Can not create dir " + dir);
+            }
         }
     }
 }

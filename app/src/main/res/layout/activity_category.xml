@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/menu"
+    android:background="#535676"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -30,15 +30,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:background="@color/headingback"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/txtViewCatagoryPageHeading"
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Word Power Swahili"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:layout_weight="1"
+                android:background="#535676"
+                android:src="@drawable/logoheader"
+                android:id="@+id/headerView" />
         </LinearLayout>
 
         <ScrollView
@@ -66,17 +68,21 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
-                            app:srcCompat="@drawable/greeetings" />
+                        <TextView
+                            android:id="@+id/imgGreeting"
+                            android:background="@color/background_textview"
+                            android:foreground="@drawable/greetings"
+                            android:layout_height="40sp"
+                            android:layout_width="40sp" />
 
                         <Button
                             android:id="@+id/catBtnGreetings"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Greetings / Maamkizi" />
+                            android:layout_margin="10dp"
+                            android:background="@color/greeen"
+                            android:text="Greetings / Maamkizi"
+                            android:textColor="@android:color/background_light" />
 
 
                     </LinearLayout>
@@ -88,17 +94,21 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
-                            app:srcCompat="@drawable/express" />
+                        <TextView
+                            android:id="@+id/imgExpress"
+                            android:layout_width="40sp"
+                             android:layout_height="40sp" 
+                            android:foreground="@drawable/express"
+                            android:background="@color/background_textview" />
 
                         <Button
                             android:id="@+id/catBtnExprs"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Expressions" />
+                            android:layout_margin="10dp"
+                            android:background="@color/greeen"
+                            android:text="Expressions"
+                            android:textColor="@android:color/background_light" />
 
 
                     </LinearLayout>
@@ -110,17 +120,21 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
-                            app:srcCompat="@drawable/number" />
+                        <TextView
+                            android:id="@+id/imgNumber"
+                            android:layout_width="40sp"
+                             android:layout_height="40sp" 
+                            android:foreground="@drawable/number"
+                            android:background="@color/background_textview" />
 
                         <Button
                             android:id="@+id/catBtnNumber"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Number" />
+                            android:layout_margin="10dp"
+                            android:background="@color/greeen"
+                            android:text="Number"
+                            android:textColor="@android:color/background_light" />
 
 
                     </LinearLayout>
@@ -132,18 +146,22 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
-                            app:srcCompat="@drawable/time" />
+                        <TextView
+                            android:id="@+id/imgTime"
+                            android:layout_width="40sp"
+                             android:layout_height="40sp" 
+                            android:foreground="@drawable/time"
+                            android:background="@color/background_textview" />
 
 
                         <Button
                             android:id="@+id/catBtnTime"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Time" />
+                            android:layout_margin="10dp"
+                            android:background="@color/greeen"
+                            android:text="Time"
+                            android:textColor="@android:color/background_light" />
 
 
                     </LinearLayout>
@@ -155,17 +173,21 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
-                            app:srcCompat="@drawable/date" />
+                        <TextView
+                            android:id="@+id/imgDay"
+                            android:layout_width="40sp"
+                             android:layout_height="40sp" 
+                            android:foreground="@drawable/date"
+                            android:background="@color/background_textview" />
 
                         <Button
                             android:id="@+id/catBtnDay"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Day" />
+                            android:layout_margin="10dp"
+                            android:background="@color/greeen"
+                            android:text="Day"
+                            android:textColor="@android:color/background_light" />
 
 
                     </LinearLayout>
@@ -177,17 +199,21 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
-                            app:srcCompat="@drawable/date" />
+                        <TextView
+                            android:id="@+id/imgDate"
+                            android:layout_width="40sp"
+                             android:layout_height="40sp"
+                            android:background="@color/background_textview"
+                            android:foreground="@drawable/months" />
 
                         <Button
                             android:id="@+id/catBtnMonth"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Months" />
+                            android:layout_margin="10dp"
+                            android:background="@color/greeen"
+                            android:text="Months"
+                            android:textColor="@android:color/background_light" />
 
 
                     </LinearLayout>
@@ -199,18 +225,22 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
-                            app:srcCompat="@android:drawable/alert_dark_frame" />
+                        <TextView
+                            android:id="@+id/imgSeason"
+                            android:layout_width="40sp"
+                             android:layout_height="40sp" 
+                            android:foreground="@drawable/seasons"
+                            android:background="@color/background_textview" />
 
 
                         <Button
                             android:id="@+id/catBtnSeason"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Seasons / Majira" />
+                            android:layout_margin="10dp"
+                            android:background="@color/greeen"
+                            android:text="Seasons / Majira"
+                            android:textColor="@android:color/background_light" />
 
 
                     </LinearLayout>
@@ -222,17 +252,21 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
-                            app:srcCompat="@drawable/transport" />
+                        <TextView
+                            android:id="@+id/imgTransport"
+                            android:layout_width="40sp"
+                             android:layout_height="40sp" 
+                            android:foreground="@drawable/transport"
+                            android:background="@color/background_textview" />
 
                         <Button
                             android:id="@+id/catBtnTransport"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Transportation / Usafiri" />
+                            android:layout_margin="10dp"
+                            android:background="@color/greeen"
+                            android:text="Transportation / Usafiri"
+                            android:textColor="@android:color/background_light" />
 
 
                     </LinearLayout>
@@ -244,17 +278,21 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
-                            app:srcCompat="@android:drawable/btn_star_big_on" />
+                        <TextView
+                            android:id="@+id/imgPeople"
+                            android:layout_width="40sp"
+                             android:layout_height="40sp" 
+                            android:foreground="@drawable/people"
+                            android:background="@color/background_textview" />
 
                         <Button
                             android:id="@+id/catBtnPeople"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="People / Watu" />
+                            android:layout_margin="10dp"
+                            android:background="@color/greeen"
+                            android:text="People / Watu"
+                            android:textColor="@android:color/background_light" />
 
 
                     </LinearLayout>
@@ -266,17 +304,21 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
-                            app:srcCompat="@android:drawable/star_on" />
+                        <TextView
+                            android:id="@+id/imgWorker"
+                            android:layout_width="40sp"
+                             android:layout_height="40sp" 
+                            android:foreground="@drawable/workers"
+                            android:background="@color/background_textview" />
 
                         <Button
                             android:id="@+id/catBtnWorker"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Workers / Wafanyakazi" />
+                            android:layout_margin="10dp"
+                            android:background="@color/greeen"
+                            android:text="Workers / Wafanyakazi"
+                            android:textColor="@android:color/background_light" />
 
 
                     </LinearLayout>
@@ -288,18 +330,22 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
-                            app:srcCompat="?android:attr/textSelectHandle" />
+                        <TextView
+                            android:id="@+id/imgCloth"
+                            android:layout_width="40sp"
+                             android:layout_height="40sp" 
+                            android:foreground="@drawable/clothing"
+                            android:background="@color/background_textview" />
 
 
                         <Button
                             android:id="@+id/catBtnCloth"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Clothings" />
+                            android:layout_margin="10dp"
+                            android:background="@color/greeen"
+                            android:text="Clothings"
+                            android:textColor="@android:color/background_light" />
 
 
                     </LinearLayout>
@@ -311,17 +357,21 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageView
-
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
-                            app:srcCompat="@drawable/food" />
+                        <TextView
+                            android:id="@+id/imgFood"
+                            android:layout_width="40sp"
+                             android:layout_height="40sp" 
+                            android:foreground="@drawable/food"
+                            android:background="@color/background_textview" />
 
                         <Button
                             android:id="@+id/catBtnFood"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Food" />
+                            android:layout_margin="10dp"
+                            android:background="@color/greeen"
+                            android:text="Food"
+                            android:textColor="@android:color/background_light" />
 
 
                     </LinearLayout>
@@ -333,17 +383,21 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
-                            app:srcCompat="@android:drawable/arrow_down_float" />
+                        <TextView
+                            android:id="@+id/imgWeight"
+                            android:layout_width="40sp"
+                             android:layout_height="40sp" 
+                            android:foreground="@drawable/weight"
+                            android:background="@color/background_textview" />
 
                         <Button
                             android:id="@+id/catBtnWeight"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Weight" />
+                            android:layout_margin="10dp"
+                            android:background="@color/greeen"
+                            android:text="Weight"
+                            android:textColor="@android:color/background_light" />
 
 
                     </LinearLayout>
@@ -355,17 +409,21 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
-                            app:srcCompat="@drawable/domAnimal" />
+                        <TextView
+                            android:id="@+id/imgDAnimal"
+                            android:layout_width="40sp"
+                             android:layout_height="40sp" 
+                            android:foreground="@drawable/domanimal"
+                            android:background="@color/background_textview" />
 
                         <Button
                             android:id="@+id/catBtnAnimalDom"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Animal Dom" />
+                            android:layout_margin="10dp"
+                            android:background="@color/greeen"
+                            android:text="Animal Dom"
+                            android:textColor="@android:color/background_light" />
 
 
                     </LinearLayout>
@@ -377,18 +435,22 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
-                            app:srcCompat="@drawable/wildAnimal" />
+                        <TextView
+                            android:id="@+id/imgWAnimal"
+                            android:layout_width="40sp"
+                             android:layout_height="40sp" 
+                            android:foreground="@drawable/wildanimal"
+                            android:background="@color/background_textview" />
 
 
                         <Button
                             android:id="@+id/catBtnAnimalWild"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Animal Wild" />
+                            android:layout_margin="10dp"
+                            android:background="@color/greeen"
+                            android:text="Animal Wild"
+                            android:textColor="@android:color/background_light" />
 
 
                     </LinearLayout>
@@ -400,18 +462,22 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
-                            app:srcCompat="@android:drawable/stat_notify_more" />
+                        <TextView
+                            android:id="@+id/imgPest"
+                            android:layout_width="40sp"
+                             android:layout_height="40sp" 
+                            android:foreground="@drawable/pests"
+                            android:background="@color/background_textview" />
 
 
                         <Button
                             android:id="@+id/catBtnPest"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Pests" />
+                            android:layout_margin="10dp"
+                            android:background="@color/greeen"
+                            android:text="Pests"
+                            android:textColor="@android:color/background_light" />
 
 
                     </LinearLayout>
@@ -423,18 +489,22 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
-                            app:srcCompat="@drawable/BodyParts" />
+                        <TextView
+                            android:id="@+id/imgBody"
+                            android:layout_width="40sp"
+                             android:layout_height="40sp" 
+                            android:background="@color/background_textview"
+                            android:foreground="@drawable/bodyparts" />
 
 
                         <Button
                             android:id="@+id/catBtnBody"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Body" />
+                            android:layout_margin="10dp"
+                            android:background="@color/greeen"
+                            android:text="Body"
+                            android:textColor="@android:color/background_light" />
 
 
                     </LinearLayout>
@@ -446,18 +516,22 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageView
-
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
-                            app:srcCompat="@drawable/directions" />
+                        <TextView
+                            android:id="@+id/imgDirection"
+                            android:layout_width="40sp"
+                             android:layout_height="40sp" 
+                            android:foreground="@drawable/directions"
+                            android:background="@color/background_textview" />
 
 
                         <Button
                             android:id="@+id/catBtnDirection"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Direction" />
+                            android:layout_margin="10dp"
+                            android:background="@color/greeen"
+                            android:text="Direction"
+                            android:textColor="@android:color/background_light" />
 
 
                     </LinearLayout>
@@ -469,18 +543,22 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageView
-
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
-                            app:srcCompat="@drawable/UsefulWords" />
+                        <TextView
+                            android:id="@+id/imgWord"
+                            android:layout_width="40sp"
+                             android:layout_height="40sp" 
+                            android:foreground="@drawable/usefullhords"
+                            android:background="@color/background_textview" />
 
 
                         <Button
                             android:id="@+id/catBtnWord"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Words" />
+                            android:layout_margin="10dp"
+                            android:background="@color/greeen"
+                            android:text="Words"
+                            android:textColor="@android:color/background_light" />
 
 
                     </LinearLayout>
@@ -492,18 +570,22 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
-                            app:srcCompat="@drawable/illness" />
+                        <TextView
+                            android:id="@+id/imgIllness"
+                            android:layout_width="40sp"
+                             android:layout_height="40sp" 
+                            android:foreground="@drawable/illness"
+                            android:background="@color/background_textview" />
 
 
                         <Button
                             android:id="@+id/catBtnIllness"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Illness" />
+                            android:layout_margin="10dp"
+                            android:background="@color/greeen"
+                            android:text="Illness"
+                            android:textColor="@android:color/background_light" />
 
 
                     </LinearLayout>
@@ -515,18 +597,23 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
-                            app:srcCompat="@drawable/signs" />
+                        <TextView
+                            android:id="@+id/imgSign"
+
+                            android:layout_width="40sp"
+                             android:layout_height="40sp" 
+                            android:foreground="@drawable/signs"
+                            android:background="@color/background_textview" />
 
 
                         <Button
                             android:id="@+id/catBtnSign"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Signs" />
+                            android:layout_margin="10dp"
+                            android:background="@color/greeen"
+                            android:text="Signs"
+                            android:textColor="@android:color/background_light" />
 
 
                     </LinearLayout>
@@ -538,18 +625,22 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
-                            app:srcCompat="@drawable/construction" />
+                        <TextView
+                            android:id="@+id/imgConstruction"
+                            android:layout_width="40sp"
+                             android:layout_height="40sp" 
+                            android:foreground="@drawable/construction"
+                            android:background="@color/background_textview" />
 
 
                         <Button
                             android:id="@+id/catBtnConstruction"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Construction" />
+                            android:layout_margin="10dp"
+                            android:background="@color/greeen"
+                            android:text="Construction"
+                            android:textColor="@android:color/background_light" />
 
 
                     </LinearLayout>
@@ -561,18 +652,22 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageView
-
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
-                            app:srcCompat="@drawable/stationaries" />
+                        <TextView
+                            android:id="@+id/imgStationary"
+                            android:layout_width="40sp"
+                             android:layout_height="40sp" 
+                            android:foreground="@drawable/stationaries"
+                            android:background="@color/background_textview" />
 
 
                         <Button
                             android:id="@+id/catBtnStationaries"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Stationaries" />
+                            android:layout_margin="10dp"
+                            android:background="@color/greeen"
+                            android:text="Stationaries"
+                            android:textColor="@android:color/background_light" />
 
 
                     </LinearLayout>
@@ -584,17 +679,21 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
-                            app:srcCompat="@drawable/subjects" />
+                        <TextView
+                            android:id="@+id/imgSubject"
+                            android:layout_width="40sp"
+                             android:layout_height="40sp" 
+                            android:foreground="@drawable/sibjects"
+                            android:background="@color/background_textview" />
 
                         <Button
                             android:id="@+id/catBtnSubject"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Subjects" />
+                            android:layout_margin="10dp"
+                            android:background="@color/greeen"
+                            android:text="Subjects"
+                            android:textColor="@android:color/background_light" />
 
 
                     </LinearLayout>
@@ -606,18 +705,22 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
-                            app:srcCompat="@drawable/Continents" />
+                        <TextView
+                            android:id="@+id/imgContinent"
+                            android:layout_width="40sp"
+                             android:layout_height="40sp" 
+                            android:foreground="@drawable/continents"
+                            android:background="@color/background_textview" />
 
 
                         <Button
                             android:id="@+id/catBtnContinents"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Continents" />
+                            android:layout_margin="10dp"
+                            android:background="@color/greeen"
+                            android:text="Continents"
+                            android:textColor="@android:color/background_light" />
 
 
                     </LinearLayout>
@@ -629,18 +732,22 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
-                            app:srcCompat="@android:drawable/ic_secure" />
+                        <TextView
+                            android:id="@+id/imgCommon"
+                            android:layout_width="40sp"
+                             android:layout_height="40sp" 
+                            android:foreground="@drawable/commonitems"
+                            android:background="@color/background_textview" />
 
 
                         <Button
                             android:id="@+id/catBtnCommonItems"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Item" />
+                            android:layout_margin="10dp"
+                            android:background="@color/greeen"
+                            android:text="Item"
+                            android:textColor="@android:color/background_light" />
 
 
                     </LinearLayout>
@@ -652,18 +759,22 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
-                            app:srcCompat="@drawable/colors" />
+                        <TextView
+                            android:id="@+id/imgColors"
+                            android:layout_width="40sp"
+                             android:layout_height="40sp" 
+                            android:foreground="@drawable/colors"
+                            android:background="@color/background_textview" />
 
 
                         <Button
                             android:id="@+id/catBtnColor"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Color" />
+                            android:layout_margin="10dp"
+                            android:background="@color/greeen"
+                            android:text="Color"
+                            android:textColor="@android:color/background_light" />
 
 
                     </LinearLayout>
@@ -675,18 +786,22 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
-                            app:srcCompat="@drawable/maths" />
+                        <TextView
+                            android:id="@+id/imgMath"
+                            android:layout_width="40sp"
+                             android:layout_height="40sp" 
+                            android:foreground="@drawable/maths"
+                            android:background="@color/background_textview" />
 
 
                         <Button
                             android:id="@+id/catBtnMath"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Math" />
+                            android:layout_margin="10dp"
+                            android:background="@color/greeen"
+                            android:text="Math"
+                            android:textColor="@android:color/background_light" />
 
 
                     </LinearLayout>
@@ -698,17 +813,21 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
-                            app:srcCompat="@android:drawable/btn_dialog" />
+                        <TextView
+                            android:id="@+id/imgAbout"
+                            android:layout_width="40sp"
+                             android:layout_height="40sp" 
+                            android:foreground="@drawable/aboutus"
+                            android:background="@color/background_textview" />
 
                         <Button
                             android:id="@+id/catBtnAboutUs"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="About us" />
+                            android:layout_margin="10dp"
+                            android:background="@color/greeen"
+                            android:text="About us"
+                            android:textColor="@android:color/background_light" />
 
 
                     </LinearLayout>

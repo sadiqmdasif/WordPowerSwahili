@@ -2,44 +2,45 @@ package com.phonegap.wordpowerswahili;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.NotificationManager;
-import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 public class LoadingActivity extends Activity {
     private static final int REQUEST_WRITE_STORAGE = 112;
@@ -53,17 +54,19 @@ public class LoadingActivity extends Activity {
     private static final String TAG_HASMP3 = "HasMP3";
     private static String TAG = "PermissionDemo";
     //Word Downloader
-    // URL to get JSON
+    // URL
     private static String wordUrl = "http://wordpowerswahili.org/api/wordsapi";
+    private static String soundZipUrl = "http://wordpowerswahili.org/sounds/sounds.zip";
+    private static String soundUrl = "http://wordpowerswahili.org/sounds/";
+
+
     // File url to download
-    private static String soundUrl = "";
+
     private static String CATEGORYID = "";
     private static String FILENAME = "";
     int id = 1;
     int counter = 0;
     ArrayList<AsyncTask<String, String, String>> arr;
-    NotificationCompat.Builder mBuilder;
-    NotificationManager mNotifyManager;
     SqliteController controller;
     // user JSONArray
     JSONArray items = null;
@@ -72,12 +75,15 @@ public class LoadingActivity extends Activity {
     // Hashmap for ListView
     ArrayList<HashMap<String, String>> wordList;
     DownloadWordFromURL wordFromURL;
+
     //DownloadSoundFromURL soundFromURL;
     AlertDialog.Builder builder;
     TextView txtLoadingInfo;
-    private NotificationReceiver nReceiver;
+    UnZipTask unZipTask;
+    //private NotificationReceiver nReceiver;
     private boolean isWordDownloaded = false;
     private DownloadZipFromURL zipFromURL;
+    private DownloadSoundFromURL soundFromURL;
 
     public static boolean isDeviceOnline(Context context) {
 
@@ -95,100 +101,75 @@ public class LoadingActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
         txtLoadingInfo = (TextView) findViewById(R.id.txtLoadingInfo);
-        //check permissions
-        permissionChecker();
-        //Database
-        controller = new SqliteController(getApplication().getApplicationContext());
-        wordList = new ArrayList<HashMap<String, String>>();
-
-        //Dialog
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_NoActionBar_MinWidth);
-        } else {
-            builder = new AlertDialog.Builder(this);
-        }
-
-
-        //Notification Bar
-        mNotifyManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        mBuilder = new NotificationCompat.Builder(this);
-        mBuilder.setContentTitle("Downloading Sounds...").setContentText("Download in progress").setSmallIcon(R.mipmap.ic_launcher);
-        // Start a lengthy operation in a background thread
-        mBuilder.setProgress(0, 0, true);
-
-
-        //Notification Receiver
-        nReceiver = new NotificationReceiver();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(NLService.NOT_TAG);
-        registerReceiver(nReceiver, filter);
-
-
         wordFromURL = new DownloadWordFromURL();
-       // soundFromURL = new DownloadSoundFromURL();
+        wordList = new ArrayList<HashMap<String, String>>();
+        // soundFromURL = new DownloadSoundFromURL();
         zipFromURL = new DownloadZipFromURL();
+        soundFromURL = new DownloadSoundFromURL();
+
+        unZipTask = new UnZipTask();
 
         arr = new ArrayList<AsyncTask<String, String, String>>();
 
         arr.add(wordFromURL);
         arr.add(zipFromURL);
-       // arr.add(soundFromURL);
-
-        mDownloader();
+        arr.add(soundFromURL);
+        arr.add(unZipTask);
+        //check permissions
+        hasPermission();
     }
+
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         killTasks();
-        unregisterReceiver(nReceiver);
+        controller.close();
+        //    unregisterReceiver(nReceiver);
     }
 
-    void mDownloader() {
+    private void mLoader() {
 
-        builder.setTitle("Internet Required");
-        builder.setMessage("Setup will download files (60 MB) and press OK");
-        builder.setPositiveButton("OK",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,
-                                        int which) {
-                        if (!isDeviceOnline(LoadingActivity.this)) {
-                            builder.show();
-                        } else {
+        //Database
+        controller = new SqliteController(getApplication().getApplicationContext());
 
-                            wordFromURL.execute();
-                        }
+        HashMap downloadStatus = controller.getDownloadStatus("1");
+        if (downloadStatus.get("STATUS").equals("2")) {
 
+            if (new ArrayList<HashMap>(controller.getAllWordsHasNoMp3()).size() != 0) {
+               soundFromURL.execute(soundUrl);
+            } else {
 
-                    }
-                });
-        ArrayList<HashMap<String, String>> wordListCount = controller.getAllWords();
-        if (wordListCount.size() < 876) {
-            isWordDownloaded = false;
+                startActivity(new Intent(LoadingActivity.this, CategoryListActivity.class));
+            }
+
         } else {
-            isWordDownloaded = true;
-        }
-        if (!isWordDownloaded) {
-            builder.show();
+            //Dialog
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_NoActionBar_MinWidth);
+            } else {
+                builder = new AlertDialog.Builder(this);
+            }
+
+            mDownloader();
+
+
         }
 
-        if (isWordDownloaded) {
-            //soundFromURL.execute("http://www.wordpowerswahili.org/sounds/");
-            zipFromURL.execute("http://wordpowerswahili.org/sounds/sounds.zip");
-        }
     }
 
-    private void permissionChecker() {
+    private boolean hasPermission() {
 
         int permission = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
         if (permission != PackageManager.PERMISSION_GRANTED) {
             Log.i(TAG, "Permission to record denied");
 
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+            if (ActivityCompat.shouldShowRequestPermissionRationale(LoadingActivity.this,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage("Permission to access the SD-CARD is required for this app to Download PDF.")
+                AlertDialog.Builder builder = new AlertDialog.Builder(LoadingActivity.this);
+                builder.setMessage("Permission to access the SD-CARD is required for this app")
                         .setTitle("Permission required");
 
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -204,11 +185,17 @@ public class LoadingActivity extends Activity {
 
             } else {
                 makeRequest();
-            }
 
+                // makeRequest();
+            }
+            return false;
+
+        } else {
+            mLoader();
+            return true;
         }
 
-        ContentResolver contentResolver = getContentResolver();
+      /*  ContentResolver contentResolver = getContentResolver();
         String enabledNotificationListeners = Settings.Secure.getString(contentResolver, "enabled_notification_listeners");
         String packageName = getPackageName();
 
@@ -223,36 +210,100 @@ public class LoadingActivity extends Activity {
             startActivity(intent);
         } else {
             Log.i("ACC", "Have Notification access");
-        }
+        }*/
     }
 
     protected void makeRequest() {
-        ActivityCompat.requestPermissions(this,
+        ActivityCompat.requestPermissions(LoadingActivity.this,
                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                 REQUEST_WRITE_STORAGE);
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_WRITE_STORAGE: {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == REQUEST_WRITE_STORAGE) {
+            // for each permission check if the user granted/denied them
+            // you may want to group the rationale in a single dialog,
+            // this is just an example
+            for (int i = 0, len = permissions.length; i < len; i++) {
+                String permission = permissions[i];
+                if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
+                    // user rejected the permission
+                    boolean showRationale = false;
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                        showRationale = shouldShowRequestPermissionRationale(permission);
+                    }
+                    if (!showRationale) {
 
-                if (grantResults.length == 0
-                        || grantResults[0] !=
-                        PackageManager.PERMISSION_GRANTED) {
-
-                    Log.i(TAG, "Permission has been denied by user");
-
+                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        Uri uri = Uri.fromParts("package", getPackageName(), null);
+                        intent.setData(uri);
+                        startActivityForResult(intent, REQUEST_WRITE_STORAGE);
+                        hasPermission();
+                        // user also CHECKED "never ask again"
+                        // you can either enable some fall back,
+                        // disable features of your app
+                        // or open another dialog explaining
+                        // again the permission and directing to
+                        // the app setting
+                    } else if (Manifest.permission.WRITE_CONTACTS.equals(permission)) {
+                        //showRationale(permission, R.string.permission_denied_contacts);
+                        // user did NOT check "never ask again"
+                        // this is a good place to explain the user
+                        // why you need the permission and ask if he wants
+                        // to accept it (the rationale)
+                        hasPermission();
+                    }
                 } else {
-
-                    Log.i(TAG, "Permission has been granted by user");
-
+                    mLoader();
                 }
-                return;
             }
         }
     }
+
+    public void unzip(String fileName, String filePath, String destinationPath) {
+        String fullPath = filePath + "/" + fileName + ".zip";
+        Log.d(TAG, "unzipping " + fileName + " to " + destinationPath);
+        unZipTask.execute(fullPath, destinationPath);
+    }
+
+    void mDownloader() {
+
+        builder.setTitle("Internet Required");
+        builder.setMessage("Setup will download files (60 MB) and press OK");
+        builder.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+                        if (!isDeviceOnline(LoadingActivity.this)) {
+
+                            builder.show();
+                        } else {
+                            wordFromURL.execute();
+                        }
+
+
+                    }
+                });
+        AlertDialog alert = builder.create();
+
+        ArrayList<HashMap<String, String>> wordListCount = controller.getAllWords();
+        if (wordListCount.size() < 876) {
+            isWordDownloaded = false;
+        } else {
+            isWordDownloaded = true;
+        }
+        if (!isWordDownloaded) {
+            alert.show();
+//            builder.show();
+        }
+
+        if (isWordDownloaded) {
+            //soundFromURL.execute("http://www.wordpowerswahili.org/sounds/");
+            zipFromURL.execute(soundZipUrl);
+        }
+    }
+
 
     private void killTasks() {
         if (null != arr & arr.size() > 0) {
@@ -262,11 +313,11 @@ public class LoadingActivity extends Activity {
                     a.cancel(true);
                 }
             }
-            mNotifyManager.cancelAll();
+            //    mNotifyManager.cancelAll();
         }
     }
 
-    class NotificationReceiver extends BroadcastReceiver {
+    /*class NotificationReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             String event = intent.getExtras().getString(NLService.NOT_EVENT_KEY);
@@ -275,7 +326,7 @@ public class LoadingActivity extends Activity {
                 killTasks();
             }
         }
-    }
+    }*/
 
 
     private class DownloadWordFromURL extends AsyncTask<String, String, String> {
@@ -294,7 +345,7 @@ public class LoadingActivity extends Activity {
             pDialog.setMessage("Please wait...");
             pDialog.setCancelable(false);
             pDialog.show();*/
-            txtLoadingInfo.setText("Downloading Words");
+            txtLoadingInfo.setText("Loading...");
 
         }
 
@@ -406,9 +457,9 @@ public class LoadingActivity extends Activity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            mNotifyManager.notify(id, mBuilder.build());
-            mBuilder.setAutoCancel(true);
-            txtLoadingInfo.setText("Downloading Sounds! This may take a while");
+            //   mNotifyManager.notify(id, mBuilder.build());
+            //  mBuilder.setAutoCancel(true);
+            txtLoadingInfo.setText("Please Wait! This may take a while");
             // showDialog(progress_bar_type);
         }
 
@@ -505,10 +556,10 @@ public class LoadingActivity extends Activity {
 
             txtLoadingInfo.setText("Please Wait! Downloading\n" + FILENAME + ".mp3 " + String.valueOf(Integer.parseInt(progress[0])) + "%");
             Log.i("Counter", "Counter : " + counter + ", per : " + progress[0]);
-            mBuilder.setContentText("Please Wait! Downloading\n" + FILENAME + ".mp3 " + String.valueOf(Integer.parseInt(progress[0])) + "%");
-            mBuilder.setProgress(100, Integer.parseInt(progress[0]), false);
+            //mBuilder.setContentText("Please Wait! Downloading\n" + FILENAME + ".mp3 " + String.valueOf(Integer.parseInt(progress[0])) + "%");
+            //     mBuilder.setProgress(100, Integer.parseInt(progress[0]), false);
             // Displays the progress bar for the first time.
-            mNotifyManager.notify(id, mBuilder.build());
+            //    mNotifyManager.notify(id, mBuilder.build());
         }
 
         /**
@@ -528,11 +579,11 @@ public class LoadingActivity extends Activity {
 
             // When the loop is finished, updates the notification
 
-            mBuilder.setContentTitle("Done.");
-            mBuilder.setContentText("Sound Download complete")
-                    // Removes the progress bar
-                    .setProgress(0, 0, false);
-            mNotifyManager.notify(id, mBuilder.build());
+            //mBuilder.setContentTitle("Done.");
+            // mBuilder.setContentText("Sound Download complete")
+            // Removes the progress bar
+            //      .setProgress(0, 0, false);
+            //    mNotifyManager.notify(id, mBuilder.build());
 
             startActivity(new Intent(LoadingActivity.this, CategoryListActivity.class));
 
@@ -546,9 +597,9 @@ public class LoadingActivity extends Activity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            mNotifyManager.notify(id, mBuilder.build());
-            mBuilder.setAutoCancel(true);
-            txtLoadingInfo.setText("Downloading Sounds! This may take a while");
+            // mNotifyManager.notify(id, mBuilder.build());
+            // mBuilder.setAutoCancel(true);
+            txtLoadingInfo.setText("Please Wait! This may take a while");
         }
 
         @Override
@@ -566,14 +617,17 @@ public class LoadingActivity extends Activity {
 
                 InputStream input = new BufferedInputStream(url.openStream());
 
-
                 File cacheDir = new File(android.os.Environment.getExternalStorageDirectory(), "/SWAHILI/");
                 if (!cacheDir.exists())
                     cacheDir.mkdirs();
 
-                File f = new File(cacheDir, "sound.zip");
+                File f = new File(cacheDir, "sounds.zip");
+
+                if (f.exists()) {
+
+                }
                 if (!f.exists()) {
-                    FileOutputStream output = new FileOutputStream(cacheDir);
+                    FileOutputStream output = new FileOutputStream(f);
                     byte data[] = new byte[1024];
                     long total = 0;
                     while ((count = input.read(data)) != -1) {
@@ -586,18 +640,55 @@ public class LoadingActivity extends Activity {
                     output.close();
                 }
                 input.close();
-            } catch (Exception e) {}
+                if (f.exists()) {
+                    if (f.length() == lenghtOfFile) {
+                        Log.d("fileSize", "File Size ok!! ");
+                    } else {
+                        f.delete();
+                        mDownloader();
+                    }
+                }
+
+/*
+                URL u = new URL(aurl[0]);
+                URLConnection conn = u.openConnection();
+                int contentLength = conn.getContentLength();
+
+                DataInputStream stream = new DataInputStream(u.openStream());
+
+                byte[] buffer = new byte[contentLength];
+                stream.readFully(buffer);
+                stream.close();
+
+                File cacheDir = new File(android.os.Environment.getExternalStorageDirectory(), "/SWAHILI/");
+                if (!cacheDir.exists())
+                    cacheDir.mkdirs();
+
+                File f = new File(cacheDir, "sound.zip");
+                if (!f.exists()) {
+                    DataOutputStream fos = new DataOutputStream(new FileOutputStream(f));
+                    fos.write(buffer);
+                    fos.flush();
+                    fos.close();
+                }
+
+                */
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return null;
 
         }
+
         protected void onProgressUpdate(String... progress) {
-            Log.d("ANDRO_ASYNC",progress[0]);
-            txtLoadingInfo.setText("Please Wait! Downloading Sounds" + String.valueOf(Integer.parseInt(progress[0])) + "%");
+            Log.d("ANDRO_ASYNC", progress[0]);
+            txtLoadingInfo.setText("Please Wait! Downloading Sounds " + String.valueOf(Integer.parseInt(progress[0])) + "%");
             Log.i("Counter", "Counter : " + counter + ", per : " + progress[0]);
-            mBuilder.setContentText("Please Wait! Downloading Sounds" + String.valueOf(Integer.parseInt(progress[0])) + "%");
-            mBuilder.setProgress(100, Integer.parseInt(progress[0]), false);
+            ///    mBuilder.setContentText("Please Wait! Downloading Sounds" + String.valueOf(Integer.parseInt(progress[0])) + "%");
+            //   mBuilder.setProgress(100, Integer.parseInt(progress[0]), false);
             // Displays the progress bar for the first time.
-            mNotifyManager.notify(id, mBuilder.build());
+            //   mNotifyManager.notify(id, mBuilder.build());
         }
 
         @Override
@@ -611,16 +702,111 @@ public class LoadingActivity extends Activity {
             Log.i("Async-Example", "onPostExecute Called");
 
             // When the loop is finished, updates the notification
-            String zipFile = Environment.getExternalStorageDirectory() + "/SWAHILI/sound.zip";
-            String unzipLocation = Environment.getExternalStorageDirectory() + "/SWAHILI/SOUND/";
 
-            Decompress d = new Decompress(zipFile, unzipLocation);
-            d.unzip();
-            mBuilder.setContentTitle("Done.");
-            mBuilder.setContentText("Sound Download complete")
-                    // Removes the progress bar
-                    .setProgress(0, 0, false);
-            mNotifyManager.notify(id, mBuilder.build());
+
+            //   mBuilder.setContentTitle("Done.");
+            //    mBuilder.setContentText("Sound Download complete")
+            // Removes the progress bar
+            //          .setProgress(0, 0, false);
+            //    mNotifyManager.notify(id, mBuilder.build());
+            String mFilePath = Environment.getExternalStorageDirectory() + "/SWAHILI/";
+            String mDestinationFile = Environment.getExternalStorageDirectory() + "/SWAHILI/SOUND/";
+            unzip("sounds", mFilePath, mDestinationFile);
+
+
+        }
+    }
+
+    private class UnZipTask extends AsyncTask<String, String, String> {
+
+        @SuppressWarnings("rawtypes")
+        @Override
+        protected String doInBackground(String... params) {
+            String filePath = params[0];
+            String destinationPath = params[1];
+
+            File archive = new File(filePath);
+            try {
+                ZipFile zipfile = new ZipFile(archive);
+                for (Enumeration e = zipfile.entries(); e.hasMoreElements(); ) {
+                    ZipEntry entry = (ZipEntry) e.nextElement();
+                    unzipEntry(zipfile, entry, destinationPath);
+                    // controller.updateStatus("1","2");
+                }
+            } catch (Exception e) {
+                // controller.updateStatus("1","0");
+                Log.e(TAG, "Error while extracting file " + archive, e);
+                return String.valueOf(0);
+            }
+
+            return String.valueOf(1);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if (result.equals("1")) {
+                controller.updateStatus("1", "2");
+            } else {
+                controller.updateStatus("1", "0");
+            }
+            String mFilePath = Environment.getExternalStorageDirectory() + "/SWAHILI/";
+            String mDestinationFile = Environment.getExternalStorageDirectory() + "/SWAHILI/SOUND/";
+            Decompress decompress = new Decompress("sounds", mFilePath, mDestinationFile);
+
+
+            File f = new File(mDestinationFile, "" + ".nomedia");
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(LoadingActivity.this, CategoryListActivity.class));
+                    // mNotifyManager.cancelAll();
+                    finish();
+                }
+            }, 5000);
+        }
+
+        private void unzipEntry(ZipFile zipfile, ZipEntry entry,
+                                String outputDir) throws IOException {
+
+            if (entry.isDirectory()) {
+                createDir(new File(outputDir, entry.getName()));
+                return;
+            }
+
+            File outputFile = new File(outputDir, entry.getName());
+            if (!outputFile.getParentFile().exists()) {
+                createDir(outputFile.getParentFile());
+            }
+
+            Log.v(TAG, "Extracting: " + entry);
+            BufferedInputStream inputStream = new BufferedInputStream(zipfile.getInputStream(entry));
+            BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(outputFile));
+
+            try {
+                IOUtils.copy(inputStream, outputStream);
+            } finally {
+                outputStream.close();
+                inputStream.close();
+
+
+            }
+        }
+
+        private void createDir(File dir) {
+            if (dir.exists()) {
+                return;
+            }
+            Log.v(TAG, "Creating dir " + dir.getName());
+            if (!dir.mkdirs()) {
+                throw new RuntimeException("Can not create dir " + dir);
+            }
         }
     }
 }

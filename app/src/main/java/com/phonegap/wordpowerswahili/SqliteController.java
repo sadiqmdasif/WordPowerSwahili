@@ -31,6 +31,7 @@ public class SqliteController extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase database) {
+
       /*  String query;
         query = "CREATE TABLE Students ( StudentId INTEGER PRIMARY KEY, StudentName TEXT)";
         database.execSQL(query);
@@ -44,7 +45,13 @@ public class SqliteController extends SQLiteOpenHelper {
                 "hasMP3 [NVARCHAR] (5)," +
                 "NewWord    INT (1) )";
 
+        String CREATE_TABLE_DownloadStatus = "Create TABLE DownloadStatus (" +
+                "SL VARCHAR (5) NOT NULL PRIMARY KEY, STATUS Varchar (1) DEFAULT 0)";
+
+
         database.execSQL(CREATE_TABLE_WORDS);
+        database.execSQL(CREATE_TABLE_DownloadStatus);
+
         Log.d(LOGCAT, "Words Created");
     }
 
@@ -55,6 +62,15 @@ public class SqliteController extends SQLiteOpenHelper {
         database.execSQL(query);
         onCreate(database);
     }
+
+    public void updateStatus (String sl , String status) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        database.execSQL("Update DownloadStatus set status='"+status+"' where sl='"+sl+"'");
+        database.close();
+
+    }
+
+
 
     public void insertWords(HashMap<String, String> queryValues) {
         SQLiteDatabase database = this.getWritableDatabase();
@@ -116,6 +132,7 @@ public class SqliteController extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
             // return contact list
         }
+        cursor.close();
         return wordList;
     }
 
@@ -139,6 +156,7 @@ public class SqliteController extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
             // return contact list
         }
+        cursor.close();
         return wordList;
     }
 
@@ -162,6 +180,7 @@ public class SqliteController extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
             // return contact list
         }
+        cursor.close();
         return wordList;
     }
 
@@ -192,7 +211,33 @@ public class SqliteController extends SQLiteOpenHelper {
             wordInfo.put("Sound", "0");
             wordInfo.put("NewWord", "0");
         }
+        cursor.close();
         return wordInfo;
+    }
+
+    public HashMap<String, String> getDownloadStatus(String sl) {
+        HashMap<String, String> downloadInfo = new HashMap<String, String>();
+        SQLiteDatabase database = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM DownloadStatus where sl='" + sl + "'";
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                //HashMap<String, String> map = new HashMap<String, String>();
+                downloadInfo.put("SL", cursor.getString(0));
+                downloadInfo.put("STATUS", cursor.getString(1));
+
+
+                // wordList.add(map);
+            } while (cursor.moveToNext());
+        }
+        if (cursor.getCount() == 0) {
+            downloadInfo.put("SL", "0");
+            downloadInfo.put("STATUS", "0");
+
+        }
+
+        cursor.close();
+        return downloadInfo;
     }
 
 }
