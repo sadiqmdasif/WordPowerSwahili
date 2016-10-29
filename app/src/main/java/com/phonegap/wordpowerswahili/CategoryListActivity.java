@@ -1,6 +1,7 @@
 package com.phonegap.wordpowerswahili;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -14,8 +15,13 @@ public class CategoryListActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onBackPressed() {
-       // super.onBackPressed();
-
+        super.onBackPressed();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            finishAffinity();
+        }
+        else {
+            finish();
+        }
     }
 
     @Override

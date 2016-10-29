@@ -140,6 +140,7 @@ public class LoadingActivity extends Activity {
                soundFromURL.execute(soundUrl);
             } else {
 
+                finish();
                 startActivity(new Intent(LoadingActivity.this, CategoryListActivity.class));
             }
 
