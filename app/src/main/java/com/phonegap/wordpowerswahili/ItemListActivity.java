@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -129,7 +130,7 @@ public class ItemListActivity extends AppCompatActivity {
 
             final TextView mEnglish = (TextView) convertView.findViewById(R.id.txtEnglish);
             final TextView mSwahili = (TextView) convertView.findViewById(R.id.txtSwahili);
-            final Button buttonPlay = (Button) convertView.findViewById(R.id.buttonPlaySwahili);
+            final ImageButton buttonPlay = (ImageButton) convertView.findViewById(R.id.buttonPlaySwahili);
 
 
             final HashMap<String, String> o = (HashMap<String, String>) dataAdap.getItem(position);

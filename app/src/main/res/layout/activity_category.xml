@@ -68,10 +68,10 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <ImageView
                             android:id="@+id/imgGreeting"
+                            android:src="@drawable/greetings"
                             android:background="@color/background_textview"
-                            android:foreground="@drawable/greetings"
                             android:layout_height="40sp"
                             android:layout_width="40sp" />
 
@@ -94,11 +94,11 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <ImageView
                             android:id="@+id/imgExpress"
                             android:layout_width="40sp"
                              android:layout_height="40sp" 
-                            android:foreground="@drawable/express"
+                            android:src="@drawable/express"
                             android:background="@color/background_textview" />
 
                         <Button
@@ -120,11 +120,11 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <ImageView
                             android:id="@+id/imgNumber"
                             android:layout_width="40sp"
                              android:layout_height="40sp" 
-                            android:foreground="@drawable/number"
+                            android:src="@drawable/number"
                             android:background="@color/background_textview" />
 
                         <Button
@@ -146,11 +146,11 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <ImageView
                             android:id="@+id/imgTime"
                             android:layout_width="40sp"
                              android:layout_height="40sp" 
-                            android:foreground="@drawable/time"
+                            android:src="@drawable/time"
                             android:background="@color/background_textview" />
 
 
@@ -173,11 +173,11 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <ImageView
                             android:id="@+id/imgDay"
                             android:layout_width="40sp"
                              android:layout_height="40sp" 
-                            android:foreground="@drawable/date"
+                            android:src="@drawable/date"
                             android:background="@color/background_textview" />
 
                         <Button
@@ -199,12 +199,12 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <ImageView
                             android:id="@+id/imgDate"
                             android:layout_width="40sp"
                              android:layout_height="40sp"
                             android:background="@color/background_textview"
-                            android:foreground="@drawable/months" />
+                            android:src="@drawable/months" />
 
                         <Button
                             android:id="@+id/catBtnMonth"
@@ -225,11 +225,11 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <ImageView
                             android:id="@+id/imgSeason"
                             android:layout_width="40sp"
                              android:layout_height="40sp" 
-                            android:foreground="@drawable/seasons"
+                            android:src="@drawable/seasons"
                             android:background="@color/background_textview" />
 
 
@@ -252,11 +252,11 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <ImageView
                             android:id="@+id/imgTransport"
                             android:layout_width="40sp"
                              android:layout_height="40sp" 
-                            android:foreground="@drawable/transport"
+                            android:src="@drawable/transport"
                             android:background="@color/background_textview" />
 
                         <Button
@@ -278,11 +278,11 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <ImageView
                             android:id="@+id/imgPeople"
                             android:layout_width="40sp"
                              android:layout_height="40sp" 
-                            android:foreground="@drawable/people"
+                            android:src="@drawable/people"
                             android:background="@color/background_textview" />
 
                         <Button
@@ -304,11 +304,11 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <ImageView
                             android:id="@+id/imgWorker"
                             android:layout_width="40sp"
                              android:layout_height="40sp" 
-                            android:foreground="@drawable/workers"
+                            android:src="@drawable/workers"
                             android:background="@color/background_textview" />
 
                         <Button
@@ -330,11 +330,11 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <ImageView
                             android:id="@+id/imgCloth"
                             android:layout_width="40sp"
                              android:layout_height="40sp" 
-                            android:foreground="@drawable/clothing"
+                            android:src="@drawable/clothing"
                             android:background="@color/background_textview" />
 
 
@@ -357,11 +357,11 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <ImageView
                             android:id="@+id/imgFood"
                             android:layout_width="40sp"
                              android:layout_height="40sp" 
-                            android:foreground="@drawable/food"
+                            android:src="@drawable/food"
                             android:background="@color/background_textview" />
 
                         <Button
@@ -383,11 +383,11 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <ImageView
                             android:id="@+id/imgWeight"
                             android:layout_width="40sp"
                              android:layout_height="40sp" 
-                            android:foreground="@drawable/weight"
+                            android:src="@drawable/weight"
                             android:background="@color/background_textview" />
 
                         <Button
@@ -409,11 +409,11 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <ImageView
                             android:id="@+id/imgDAnimal"
                             android:layout_width="40sp"
                              android:layout_height="40sp" 
-                            android:foreground="@drawable/domanimal"
+                            android:src="@drawable/domanimal"
                             android:background="@color/background_textview" />
 
                         <Button
@@ -435,11 +435,11 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <ImageView
                             android:id="@+id/imgWAnimal"
                             android:layout_width="40sp"
                              android:layout_height="40sp" 
-                            android:foreground="@drawable/wildanimal"
+                            android:src="@drawable/wildanimal"
                             android:background="@color/background_textview" />
 
 
@@ -462,11 +462,11 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <ImageView
                             android:id="@+id/imgPest"
                             android:layout_width="40sp"
                              android:layout_height="40sp" 
-                            android:foreground="@drawable/pests"
+                            android:src="@drawable/pests"
                             android:background="@color/background_textview" />
 
 
@@ -489,12 +489,12 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <ImageView
                             android:id="@+id/imgBody"
                             android:layout_width="40sp"
                              android:layout_height="40sp" 
                             android:background="@color/background_textview"
-                            android:foreground="@drawable/bodyparts" />
+                            android:src="@drawable/bodyparts" />
 
 
                         <Button
@@ -516,11 +516,11 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <ImageView
                             android:id="@+id/imgDirection"
                             android:layout_width="40sp"
                              android:layout_height="40sp" 
-                            android:foreground="@drawable/directions"
+                            android:src="@drawable/directions"
                             android:background="@color/background_textview" />
 
 
@@ -543,11 +543,11 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <ImageView
                             android:id="@+id/imgWord"
                             android:layout_width="40sp"
                              android:layout_height="40sp" 
-                            android:foreground="@drawable/usefullhords"
+                            android:src="@drawable/usefullhords"
                             android:background="@color/background_textview" />
 
 
@@ -570,11 +570,11 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <ImageView
                             android:id="@+id/imgIllness"
                             android:layout_width="40sp"
                              android:layout_height="40sp" 
-                            android:foreground="@drawable/illness"
+                            android:src="@drawable/illness"
                             android:background="@color/background_textview" />
 
 
@@ -597,12 +597,12 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <ImageView
                             android:id="@+id/imgSign"
 
                             android:layout_width="40sp"
                              android:layout_height="40sp" 
-                            android:foreground="@drawable/signs"
+                            android:src="@drawable/signs"
                             android:background="@color/background_textview" />
 
 
@@ -625,11 +625,11 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <ImageView
                             android:id="@+id/imgConstruction"
                             android:layout_width="40sp"
                              android:layout_height="40sp" 
-                            android:foreground="@drawable/construction"
+                            android:src="@drawable/construction"
                             android:background="@color/background_textview" />
 
 
@@ -652,11 +652,11 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <ImageView
                             android:id="@+id/imgStationary"
                             android:layout_width="40sp"
                              android:layout_height="40sp" 
-                            android:foreground="@drawable/stationaries"
+                            android:src="@drawable/stationaries"
                             android:background="@color/background_textview" />
 
 
@@ -679,11 +679,11 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <ImageView
                             android:id="@+id/imgSubject"
                             android:layout_width="40sp"
                              android:layout_height="40sp" 
-                            android:foreground="@drawable/sibjects"
+                            android:src="@drawable/sibjects"
                             android:background="@color/background_textview" />
 
                         <Button
@@ -705,11 +705,11 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <ImageView
                             android:id="@+id/imgContinent"
                             android:layout_width="40sp"
                              android:layout_height="40sp" 
-                            android:foreground="@drawable/continents"
+                            android:src="@drawable/continents"
                             android:background="@color/background_textview" />
 
 
@@ -732,11 +732,11 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <ImageView
                             android:id="@+id/imgCommon"
                             android:layout_width="40sp"
                              android:layout_height="40sp" 
-                            android:foreground="@drawable/commonitems"
+                            android:src="@drawable/commonitems"
                             android:background="@color/background_textview" />
 
 
@@ -759,11 +759,11 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <ImageView
                             android:id="@+id/imgColors"
                             android:layout_width="40sp"
                              android:layout_height="40sp" 
-                            android:foreground="@drawable/colors"
+                            android:src="@drawable/colors"
                             android:background="@color/background_textview" />
 
 
@@ -786,11 +786,11 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <ImageView
                             android:id="@+id/imgMath"
                             android:layout_width="40sp"
                              android:layout_height="40sp" 
-                            android:foreground="@drawable/maths"
+                            android:src="@drawable/maths"
                             android:background="@color/background_textview" />
 
 
@@ -813,11 +813,11 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <ImageView
                             android:id="@+id/imgAbout"
                             android:layout_width="40sp"
                              android:layout_height="40sp" 
-                            android:foreground="@drawable/aboutus"
+                            android:src="@drawable/aboutus"
                             android:background="@color/background_textview" />
 
                         <Button

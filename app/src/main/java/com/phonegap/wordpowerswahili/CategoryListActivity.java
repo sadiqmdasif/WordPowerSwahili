@@ -98,7 +98,7 @@ public class CategoryListActivity extends AppCompatActivity implements View.OnCl
         config.setCancelButtonText(R.string.my_own_cancel);*/
 
         // Custom criteria: 1 days and 1 launches
-        RateThisApp.Config config = new RateThisApp.Config(1, 1);
+        RateThisApp.Config config = new RateThisApp.Config(3, 7);
         RateThisApp.init(config);
         // Monitor launch times and interval from installation
         RateThisApp.onStart(this);
