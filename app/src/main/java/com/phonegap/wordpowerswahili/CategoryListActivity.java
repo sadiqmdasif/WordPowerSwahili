@@ -287,9 +287,8 @@ public class CategoryListActivity extends AppCompatActivity implements View.OnCl
                 break;
             case R.id.catBtnAboutUs:
 
-                IDbundle.putString("categoryID", "Greetings");
-                intentItemList.putExtras(IDbundle);
-                //  startActivity(intentItemList);                 break;
+                startActivity(new Intent(CategoryListActivity.this,AboutUS.class));
+                break;
 
             default:
                 break;
