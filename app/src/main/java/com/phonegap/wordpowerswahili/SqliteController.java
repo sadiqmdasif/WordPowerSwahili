@@ -25,7 +25,7 @@ public class SqliteController extends SQLiteOpenHelper {
     private static final String TAG_HASMP3 = "HasMP3";
 
     public SqliteController(Context applicationcontext) {
-        super(applicationcontext, android.os.Environment.getExternalStorageDirectory() + "/SWAHILI/SWAHILIDB.db", null, 1);
+        super(applicationcontext, android.os.Environment.getExternalStorageDirectory() + "/Android/data/com.phonegap.wordpowerswahili/SWAHILIDB.db", null, 1);
         Log.d(LOGCAT, "Created db");
     }
 

@@ -95,7 +95,7 @@ public class PremiumSoundDownloader extends AppCompatActivity {
                     int lenghtOfFile;
                     if (!map.get(TAG_HASMP3).equals("1")) {
 
-                        File cacheDir = new File(android.os.Environment.getExternalStorageDirectory(), "/SWAHILI/SOUND/" + CATEGORYID);
+                        File cacheDir = new File(android.os.Environment.getExternalStorageDirectory(), "/Android/data/com.phonegap.wordpowerswahili/SOUND/" + CATEGORYID);
                         if (!cacheDir.exists())
                             cacheDir.mkdirs();
 

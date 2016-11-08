@@ -144,7 +144,7 @@ public class ItemListActivity extends AppCompatActivity {
                     HashMap map = controller.getWordInfo(o.get("WordID"));
                     String mCategory = map.get(TAG_CATEGORYID).toString();
                     String mFile = map.get(TAG_SOUND).toString();
-                    String filePath = Environment.getExternalStorageDirectory() + "/SWAHILI/SOUND/" + mCategory + "/" + mFile + ".mp3";
+                    String filePath = Environment.getExternalStorageDirectory() + "/Android/data/com.phonegap.wordpowerswahili/SOUND/" + mCategory + "/" + mFile + ".mp3";
                     AudioManager mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
                     int maxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
                     mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume, AudioManager.FLAG_PLAY_SOUND);

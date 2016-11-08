@@ -482,7 +482,7 @@ public class LoadingActivity extends Activity {
                     int lenghtOfFile;
                     if (!map.get(TAG_HASMP3).equals("1")) {
 
-                        File cacheDir = new File(android.os.Environment.getExternalStorageDirectory(), "/SWAHILI/SOUND/" + CATEGORYID);
+                        File cacheDir = new File(android.os.Environment.getExternalStorageDirectory(), "/Android/data/com.phonegap.wordpowerswahili/SOUND/" + CATEGORYID);
                         if (!cacheDir.exists())
                             cacheDir.mkdirs();
 
@@ -617,7 +617,7 @@ public class LoadingActivity extends Activity {
 
                 InputStream input = new BufferedInputStream(url.openStream());
 
-                File cacheDir = new File(android.os.Environment.getExternalStorageDirectory(), "/SWAHILI/");
+                File cacheDir = new File(android.os.Environment.getExternalStorageDirectory(), "/Android/data/com.phonegap.wordpowerswahili/");
                 if (!cacheDir.exists())
                     cacheDir.mkdirs();
 
@@ -660,7 +660,7 @@ public class LoadingActivity extends Activity {
                 stream.readFully(buffer);
                 stream.close();
 
-                File cacheDir = new File(android.os.Environment.getExternalStorageDirectory(), "/SWAHILI/");
+                File cacheDir = new File(android.os.Environment.getExternalStorageDirectory(), "/Android/data/com.phonegap.wordpowerswahili/");
                 if (!cacheDir.exists())
                     cacheDir.mkdirs();
 
@@ -709,8 +709,8 @@ public class LoadingActivity extends Activity {
             // Removes the progress bar
             //          .setProgress(0, 0, false);
             //    mNotifyManager.notify(id, mBuilder.build());
-            String mFilePath = Environment.getExternalStorageDirectory() + "/SWAHILI/";
-            String mDestinationFile = Environment.getExternalStorageDirectory() + "/SWAHILI/SOUND/";
+            String mFilePath = Environment.getExternalStorageDirectory() + "/Android/data/com.phonegap.wordpowerswahili/";
+            String mDestinationFile = Environment.getExternalStorageDirectory() + "/Android/data/com.phonegap.wordpowerswahili/SOUND/";
             unzip("sounds", mFilePath, mDestinationFile);
 
 
@@ -749,8 +749,8 @@ public class LoadingActivity extends Activity {
             } else {
                 controller.updateStatus("1", "0");
             }
-            String mFilePath = Environment.getExternalStorageDirectory() + "/SWAHILI/";
-            String mDestinationFile = Environment.getExternalStorageDirectory() + "/SWAHILI/SOUND/";
+            String mFilePath = Environment.getExternalStorageDirectory() + "/Android/data/com.phonegap.wordpowerswahili/";
+            String mDestinationFile = Environment.getExternalStorageDirectory() + "/Android/data/com.phonegap.wordpowerswahili/SOUND/";
             Decompress decompress = new Decompress("sounds", mFilePath, mDestinationFile);
 
 
