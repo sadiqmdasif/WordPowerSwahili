@@ -47,7 +47,7 @@ public class PremiumSoundDownloader extends AppCompatActivity {
         controller = new SqliteController(PremiumSoundDownloader.this);
         pd = new ProgressDialog(PremiumSoundDownloader.this);
         pDialog = new ProgressDialog(PremiumSoundDownloader.this, progress_bar_type);
-      //  setContentView(R.layout.activity_main);
+        //  setContentView(R.layout.activity_main);
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         editor = sharedpreferences.edit();
 

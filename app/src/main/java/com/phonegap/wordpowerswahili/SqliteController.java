@@ -63,13 +63,12 @@ public class SqliteController extends SQLiteOpenHelper {
         onCreate(database);
     }
 
-    public void updateStatus (String sl , String status) {
+    public void updateStatus(String sl, String status) {
         SQLiteDatabase database = this.getWritableDatabase();
-        database.execSQL("Update DownloadStatus set status='"+status+"' where sl='"+sl+"'");
+        database.execSQL("Update DownloadStatus set status='" + status + "' where sl='" + sl + "'");
         database.close();
 
     }
-
 
 
     public void insertWords(HashMap<String, String> queryValues) {

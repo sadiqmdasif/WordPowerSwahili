@@ -80,8 +80,10 @@ public class LoadingActivity extends Activity {
     AlertDialog.Builder builder;
     TextView txtLoadingInfo;
     UnZipTask unZipTask;
+    int count = 0;
     //private NotificationReceiver nReceiver;
     private boolean isWordDownloaded = false;
+    private boolean isSoundDownloaded = false;
     private DownloadZipFromURL zipFromURL;
     private DownloadSoundFromURL soundFromURL;
 
@@ -102,6 +104,8 @@ public class LoadingActivity extends Activity {
         setContentView(R.layout.activity_loading);
         txtLoadingInfo = (TextView) findViewById(R.id.txtLoadingInfo);
         wordFromURL = new DownloadWordFromURL();
+
+
         wordList = new ArrayList<HashMap<String, String>>();
         // soundFromURL = new DownloadSoundFromURL();
         zipFromURL = new DownloadZipFromURL();
@@ -119,6 +123,13 @@ public class LoadingActivity extends Activity {
         hasPermission();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // Custom criteria: 1 days and 1 launches
+
+        Log.e(TAG, "onStart: ");
+    }
 
     @Override
     protected void onDestroy() {
@@ -126,37 +137,6 @@ public class LoadingActivity extends Activity {
         killTasks();
         controller.close();
         //    unregisterReceiver(nReceiver);
-    }
-
-    private void mLoader() {
-
-        //Database
-        controller = new SqliteController(getApplication().getApplicationContext());
-
-        HashMap downloadStatus = controller.getDownloadStatus("1");
-        if (downloadStatus.get("STATUS").equals("2")) {
-
-            if (new ArrayList<HashMap>(controller.getAllWordsHasNoMp3()).size() != 0) {
-               soundFromURL.execute(soundUrl);
-            } else {
-
-                finish();
-                startActivity(new Intent(LoadingActivity.this, CategoryListActivity.class));
-            }
-
-        } else {
-            //Dialog
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_NoActionBar_MinWidth);
-            } else {
-                builder = new AlertDialog.Builder(this);
-            }
-
-            mDownloader();
-
-
-        }
-
     }
 
     private boolean hasPermission() {
@@ -213,6 +193,38 @@ public class LoadingActivity extends Activity {
             Log.i("ACC", "Have Notification access");
         }*/
     }
+    private void mLoader() {
+
+        //Database
+        controller = new SqliteController(getApplication().getApplicationContext());
+
+        HashMap downloadStatus = controller.getDownloadStatus("1");
+        if (downloadStatus.get("STATUS").equals("2")) {
+
+            if (new ArrayList<HashMap>(controller.getAllWordsHasNoMp3()).size() != 0) {
+                soundFromURL.execute(soundUrl);
+            } else {
+
+                finish();
+                startActivity(new Intent(LoadingActivity.this, CategoryListActivity.class));
+            }
+
+        } else {
+            //Dialog
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_NoActionBar_MinWidth);
+            } else {
+                builder = new AlertDialog.Builder(this);
+            }
+
+            mDownloader();
+
+
+        }
+
+    }
+
+
 
     protected void makeRequest() {
         ActivityCompat.requestPermissions(LoadingActivity.this,
@@ -263,7 +275,7 @@ public class LoadingActivity extends Activity {
     }
 
     public void unzip(String fileName, String filePath, String destinationPath) {
-        String fullPath = filePath + "/" + fileName + ".zip";
+        String fullPath = filePath + fileName + ".zip";
         Log.d(TAG, "unzipping " + fileName + " to " + destinationPath);
         unZipTask.execute(fullPath, destinationPath);
     }
@@ -296,14 +308,35 @@ public class LoadingActivity extends Activity {
         if (!isWordDownloaded) {
             alert.show();
 //            builder.show();
-        }
-
-        if (isWordDownloaded) {
-            //soundFromURL.execute("http://www.wordpowerswahili.org/sounds/");
-            zipFromURL.execute(soundZipUrl);
+        } else if (isWordDownloaded & !isSoundDownloaded) {
+            soundFromURL.execute();
         }
     }
 
+    private int getFile(String dirPath) {
+        try {
+            File f = new File(dirPath);
+            File[] files = f.listFiles();
+
+            if (files != null)
+                for (int i = 0; i < files.length; i++) {
+
+                    File file = files[i];
+                    String name = file.getName();
+                    if (name.endsWith(".mp3")) {
+                        count++;
+                    }
+
+                    if (file.isDirectory()) {
+                        getFile(file.getAbsolutePath());
+                    }
+                }
+        } catch (Exception e) {
+            return 0;
+        }
+        Log.e(TAG, "isSoundDownloaded: " + count);
+        return count;
+    }
 
     private void killTasks() {
         if (null != arr & arr.size() > 0) {
@@ -569,24 +602,28 @@ public class LoadingActivity extends Activity {
 
         @Override
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog after the file was downloaded
 
-            // Displaying downloaded image into image view
-            // Reading image path from sdcard
+            if (!isWordDownloaded) {
+                mLoader();
+                return;
+            }
 
-            //  startActivity(new Intent(PremiumSoundDownloader.this,CategoryListActivity.class));
-            Log.i("Async-Example", "onPostExecute Called");
+            if (getFile(Environment.getExternalStorageDirectory() + "/Android/data/com.phonegap.wordpowerswahili/SOUND/") > 800) {
+                isSoundDownloaded = true;
+            }
 
-            // When the loop is finished, updates the notification
+            if (isWordDownloaded & !isSoundDownloaded) {
+                zipFromURL.execute(soundZipUrl);
+            } else {
+                int secondsDelayed = 2;
+                new Handler().postDelayed(new Runnable() {
+                    public void run() {
+                        startActivity(new Intent(LoadingActivity.this, CategoryListActivity.class));
+                        finish();
+                    }
+                }, secondsDelayed * 1000);
 
-            //mBuilder.setContentTitle("Done.");
-            // mBuilder.setContentText("Sound Download complete")
-            // Removes the progress bar
-            //      .setProgress(0, 0, false);
-            //    mNotifyManager.notify(id, mBuilder.build());
-
-            startActivity(new Intent(LoadingActivity.this, CategoryListActivity.class));
-
+            }
 
         }
 
@@ -722,10 +759,22 @@ public class LoadingActivity extends Activity {
         @SuppressWarnings("rawtypes")
         @Override
         protected String doInBackground(String... params) {
+
+            //deleteFile(params[0]);
+
             String filePath = params[0];
             String destinationPath = params[1];
 
             File archive = new File(filePath);
+            if (getFile(Environment.getExternalStorageDirectory() + "/Android/data/com.phonegap.wordpowerswahili/SOUND/") >= new SqliteController(LoadingActivity.this).getAllWords().size()) {
+                if (archive.exists()) {
+                    archive.delete();
+                    Log.e(TAG, "delete zip success");
+                } else {
+                    Log.e(TAG, "delete zip fail ");
+                }
+                return String.valueOf(3);
+            }
             try {
                 ZipFile zipfile = new ZipFile(archive);
                 for (Enumeration e = zipfile.entries(); e.hasMoreElements(); ) {
@@ -746,9 +795,13 @@ public class LoadingActivity extends Activity {
         protected void onPostExecute(String result) {
             if (result.equals("1")) {
                 controller.updateStatus("1", "2");
+            } else if (result.equals('3')) {
+                controller.updateStatus("1", "2");
+                return;
             } else {
                 controller.updateStatus("1", "0");
             }
+
             String mFilePath = Environment.getExternalStorageDirectory() + "/Android/data/com.phonegap.wordpowerswahili/";
             String mDestinationFile = Environment.getExternalStorageDirectory() + "/Android/data/com.phonegap.wordpowerswahili/SOUND/";
             Decompress decompress = new Decompress("sounds", mFilePath, mDestinationFile);

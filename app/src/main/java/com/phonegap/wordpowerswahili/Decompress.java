@@ -7,22 +7,19 @@ package com.phonegap.wordpowerswahili;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.apache.commons.io.IOUtils;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.Observable;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
-import java.util.zip.ZipInputStream;
-import org.apache.commons.io.IOUtils;
+
 /**
- *
  * @author jon
  */
 public class Decompress extends Observable {
@@ -30,13 +27,13 @@ public class Decompress extends Observable {
     private static final String TAG = "UnZip";
     private String mFileName, mFilePath, mDestinationPath;
 
-    public Decompress (String fileName, String filePath, String destinationPath) {
+    public Decompress(String fileName, String filePath, String destinationPath) {
         mFileName = fileName;
         mFilePath = filePath;
         mDestinationPath = destinationPath;
     }
 
-    public String getFileName () {
+    public String getFileName() {
         return mFileName;
     }
 
@@ -44,11 +41,11 @@ public class Decompress extends Observable {
         return mFilePath;
     }
 
-    public String getDestinationPath () {
+    public String getDestinationPath() {
         return mDestinationPath;
     }
 
-    public void unzip () {
+    public void unzip() {
         String fullPath = mFilePath + "/" + mFileName + ".zip";
         Log.d(TAG, "unzipping " + mFileName + " to " + mDestinationPath);
         new UnZipTask().execute(fullPath, mDestinationPath);
@@ -65,7 +62,7 @@ public class Decompress extends Observable {
             File archive = new File(filePath);
             try {
                 ZipFile zipfile = new ZipFile(archive);
-                for (Enumeration e = zipfile.entries(); e.hasMoreElements();) {
+                for (Enumeration e = zipfile.entries(); e.hasMoreElements(); ) {
                     ZipEntry entry = (ZipEntry) e.nextElement();
                     unzipEntry(zipfile, entry, destinationPath);
                 }

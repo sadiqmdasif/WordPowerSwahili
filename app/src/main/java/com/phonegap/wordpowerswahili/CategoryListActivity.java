@@ -11,15 +11,18 @@ import com.kobakei.ratethisapp.RateThisApp;
 
 public class CategoryListActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button catBtnGreetings, catBtnExprs, catBtnNumber, catBtnTime, catBtnDay, catBtnMonth, catBtnSeason, catBtnTransport, catBtnPeople, catBtnWorker, catBtnCloth, catBtnFood, catBtnWeight, catBtnAnimalDom, catBtnAnimalWild, catBtnPest, catBtnBody, catBtnDirection, catBtnWord, catBtnIllness, catBtnSign, catBtnConstruction, catBtnStationaries, catBtnSubject, catBtnContinets, catBtn, catBtnCommonItems, catBtnColor, catBtnMath, catBtnAboutUs;
+    Button catBtnGreetings, catBtnExprs, catBtnNumber, catBtnTime, catBtnDay, catBtnMonth, catBtnSeason,
+            catBtnTransport, catBtnPeople, catBtnWorker, catBtnCloth, catBtnFood, catBtnWeight, catBtnAnimalDom,
+            catBtnAnimalWild, catBtnPest, catBtnBody, catBtnDirection, catBtnWord, catBtnIllness, catBtnSign,
+            catBtnConstruction, catBtnStationaries, catBtnSubject, catBtnContinets, catBtnCommonItems,
+            catBtnColor, catBtnMath, getMoreWords, catBtnAboutUs;
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             finishAffinity();
-        }
-        else {
+        } else {
             finish();
         }
     }
@@ -57,6 +60,7 @@ public class CategoryListActivity extends AppCompatActivity implements View.OnCl
         catBtnCommonItems = (Button) findViewById(R.id.catBtnCommonItems);
         catBtnColor = (Button) findViewById(R.id.catBtnColor);
         catBtnMath = (Button) findViewById(R.id.catBtnMath);
+        getMoreWords = (Button) findViewById(R.id.getMoreWords);
         catBtnAboutUs = (Button) findViewById(R.id.catBtnAboutUs);
 
         catBtnGreetings.setOnClickListener(this);
@@ -87,8 +91,8 @@ public class CategoryListActivity extends AppCompatActivity implements View.OnCl
         catBtnCommonItems.setOnClickListener(this);
         catBtnColor.setOnClickListener(this);
         catBtnMath.setOnClickListener(this);
+        getMoreWords.setOnClickListener(this);
         catBtnAboutUs.setOnClickListener(this);
-
 
 
     }
@@ -104,7 +108,7 @@ public class CategoryListActivity extends AppCompatActivity implements View.OnCl
         config.setCancelButtonText(R.string.my_own_cancel);*/
 
         // Custom criteria: 1 days and 1 launches
-        RateThisApp.Config config = new RateThisApp.Config(3, 7);
+        RateThisApp.Config config = new RateThisApp.Config(3, 15);
         RateThisApp.init(config);
         // Monitor launch times and interval from installation
         RateThisApp.onStart(this);
@@ -285,9 +289,12 @@ public class CategoryListActivity extends AppCompatActivity implements View.OnCl
                 intentItemList.putExtras(IDbundle);
                 startActivity(intentItemList);
                 break;
+            case R.id.getMoreWords:
+                startActivity(new Intent(CategoryListActivity.this, PaymentActivity.class));
+                break;
             case R.id.catBtnAboutUs:
 
-                startActivity(new Intent(CategoryListActivity.this,AboutUS.class));
+                startActivity(new Intent(CategoryListActivity.this, AboutUS.class));
                 break;
 
             default:
